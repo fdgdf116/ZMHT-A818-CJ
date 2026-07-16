@@ -1,3 +1,0 @@
-CMakeFiles/rk_a818_prj.dir/src/mpp/mpi_decode.c.o: \
- /home/megshark/3588_work/A818_CJ/rk_a818_prj/src/mpp/mpi_decode.c \
- /home/megshark/3588_work/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/stdc-predef.h
