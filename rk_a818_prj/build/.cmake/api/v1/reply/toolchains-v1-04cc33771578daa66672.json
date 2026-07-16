@@ -1,0 +1,113 @@
+{
+	"kind" : "toolchains",
+	"toolchains" : 
+	[
+		{
+			"compiler" : 
+			{
+				"id" : "GNU",
+				"implicit" : 
+				{
+					"includeDirectories" : 
+					[
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/include",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/include-fixed",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/include",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include"
+					],
+					"linkDirectories" : 
+					[
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/lib/gcc/aarch64-buildroot-linux-gnu/11.3.0",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/lib/gcc",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/lib64",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib64",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib64",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/lib",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib"
+					],
+					"linkFrameworkDirectories" : [],
+					"linkLibraries" : 
+					[
+						"gcc",
+						"gcc_s",
+						"c",
+						"gcc",
+						"gcc_s"
+					]
+				},
+				"path" : "/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-gcc",
+				"version" : "11.3.0"
+			},
+			"language" : "C",
+			"sourceFileExtensions" : 
+			[
+				"c",
+				"m"
+			]
+		},
+		{
+			"compiler" : 
+			{
+				"id" : "GNU",
+				"implicit" : 
+				{
+					"includeDirectories" : 
+					[
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/include/c++/11.3.0",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/include/c++/11.3.0/aarch64-buildroot-linux-gnu",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/include/c++/11.3.0/backward",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/include",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/include-fixed",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/include",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include"
+					],
+					"linkDirectories" : 
+					[
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/lib/gcc/aarch64-buildroot-linux-gnu/11.3.0",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/lib/gcc",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/lib64",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib64",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib64",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/lib",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib",
+						"/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib"
+					],
+					"linkFrameworkDirectories" : [],
+					"linkLibraries" : 
+					[
+						"stdc++",
+						"m",
+						"gcc_s",
+						"gcc",
+						"c",
+						"gcc_s",
+						"gcc"
+					]
+				},
+				"path" : "/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-g++",
+				"version" : "11.3.0"
+			},
+			"language" : "CXX",
+			"sourceFileExtensions" : 
+			[
+				"C",
+				"M",
+				"c++",
+				"cc",
+				"cpp",
+				"cxx",
+				"mm",
+				"mpp",
+				"CPP",
+				"ixx",
+				"cppm"
+			]
+		}
+	],
+	"version" : 
+	{
+		"major" : 1,
+		"minor" : 0
+	}
+}

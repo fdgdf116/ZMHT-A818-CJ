@@ -1,0 +1,1513 @@
+#include <stdint.h>
+#include <sched.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <string.h>
+#include <poll.h>
+#include <time.h>
+#include <sys/mman.h>
+#include <sys/ioctl.h>
+#include <linux/fb.h>
+#include <memory.h>
+#include <pthread.h>
+#include <unistd.h>
+#include <semaphore.h>
+#include <arpa/inet.h>
+#include <inttypes.h>
+#include <sys/time.h>
+
+#include "vivado_common.h"
+#include "mpi_encode.h"
+#include "pcie_reg_rw.h"
+#include "pcie_engine.h"
+#include "data_engine.h"
+#include "dp_engine.h"
+#include "stream_fifo.h"
+#include "fifo_engine.h"
+#include "osd_engine.h"
+#include "gpu_interface.h"
+#include "rga_interface.h"
+#include "a818_error.h"
+#include "xutils.h"
+#include "log.h"
+
+#define FPGA_PCIE_AXIFIFO_PHY (0x40000)
+#define FPGA_PCIE_AXIFIFO_LEN (0x10000)
+
+
+#define FPGA_PCIE_DATA_PHY (0x50000)
+#define FPGA_PCIE_DATA_LEN (0x10000)
+#define FPGA_PCIE_READ_DATA_OFFSET (0x1000)
+
+
+#define AXIFIFO_RECV_DATA_SIZE (1024)
+#define PCIE_AXIFIFO_BUF_SIZE_MAX (1024)
+#define AXIFIFO_HEAD_SIZE (2)
+#define AXIFIFO_LENGH_SIZE (1)
+
+typedef struct {
+    uint8_t axififo_data[1024];
+    unsigned char pc_enable;
+    unsigned char rk_enable;
+    stream_fifo_reg_t fifo_reg;
+} axififo_info_t;
+
+static axififo_info_t *g_axififo_info;
+
+static unsigned int axififo_count = 0;
+static unsigned int axififo_index = 0;
+static unsigned char msg_head_1 = 0xec;
+static unsigned char msg_head_2 = 0x91;
+static unsigned char local_buffer[PCIE_AXIFIFO_BUF_SIZE_MAX];
+
+
+static unsigned int upgrade_num;
+static unsigned int upgrade_size;
+static unsigned char* upgrade_buffer = NULL;
+static char upgrade_file_name[128];
+static FILE * upgrade_fp;
+static unsigned int upgrade_state;
+
+static char * ZPK_PWD  = "/userdata/zpk/";
+static unsigned char* zpk_upgrade_state_patch = "/tmp/sd_update";
+
+//#define DEBUG_IMAGE
+
+
+static uint8_t check_sum(unsigned char* buf, int len)
+{
+    int i;
+    uint32_t sum = 0;
+    for(i = 0; i < len; i++){
+        sum += buf[i];
+    }
+
+    return (sum & 0xff);
+}
+
+/*
+	函数: char read_zpk_upgrade_state(void)
+	作用: 读取rk3588升级的状态
+	参数:
+        无
+	返回值:
+        返回升级状态码
+*/
+char read_zpk_upgrade_state(void)
+{
+    FILE* fp;
+    int ret;
+    unsigned char state;
+
+    fp = fopen(zpk_upgrade_state_patch, "rb");
+    if(NULL == fp) {
+        printf("open %s error \n", zpk_upgrade_state_patch);
+        return -1;
+    }
+
+    ret = fread(&state, sizeof(unsigned char), 1, fp);
+    if(ret != 1){
+        printf("read %s data error \n", zpk_upgrade_state_patch);
+        fclose(fp);
+        return -2;
+    }
+
+    fclose(fp);
+    return state - '0';
+}
+
+/******************************************************************************************/
+/***************************************************************************************************/
+/*
+	函数: static void test_fill_fpga_ratio_image_info(fpga_reg_val_info_t* reg_val, ratio_image_info_t* ratio_info)
+	作用: 测试模式拼接小图图像寄存器的填充
+	参数:
+        reg_val：需要设置的寄存器的值
+        ratio_info:收到的寄存器的值
+	返回值:
+        无
+*/
+static void test_fill_fpga_ratio_image_info(fpga_reg_val_info_t* reg_val, ratio_image_info_t* ratio_info)
+{
+
+    reg_val->chn = ratio_info->chn;
+    reg_val->chn_type = INTERNAL_SOURCE_MODE;
+    reg_val->extraction = ratio_info->extraction;
+    reg_val->fill_column = ratio_info->fill_column;
+    reg_val->fill_row = ratio_info->fill_row;
+    reg_val->ratio = ratio_info->mode;
+    reg_val->src_height = ratio_info->src_height;
+    reg_val->src_width = ratio_info->src_width;
+    reg_val->zoom_height = ratio_info->height;
+    reg_val->zoom_width = ratio_info->width;
+    reg_val->fps = ratio_info->fps;
+}
+
+/*
+	函数: static test_fill_fpga_src_image_info(fpga_reg_val_info_t* reg_val, mpp_image_info_t* mpp_info)
+	作用: 测试模式编码图像寄存器的填充
+	参数:
+        reg_val：需要设置的寄存器的值
+        ratio_info:收到的寄存器的值
+	返回值:
+        无
+*/
+static void test_fill_fpga_src_image_info(fpga_reg_val_info_t* reg_val, mpp_image_info_t* mpp_info)
+{
+    reg_val->chn = mpp_info->chn;
+    reg_val->chn_type = INTERNAL_SOURCE_MODE;
+    reg_val->extraction = mpp_info->extraction;
+    reg_val->fill_column = 0;
+    reg_val->fill_row = 0;
+    reg_val->ratio = 1;
+    reg_val->src_height = mpp_info->height;
+    reg_val->src_width = mpp_info->width;
+    reg_val->zoom_height = mpp_info->height;
+    reg_val->zoom_width = mpp_info->width;
+    reg_val->fps = mpp_info->fps;
+
+}
+
+/************************************************************************************************/
+/*
+	函数: void fill_fpga_ratio_image_info(fpga_reg_val_info_t* reg_val, ratio_image_info_t* ratio_info)
+	作用: 实际拼接小图寄存器的填充
+	参数:
+        reg_val：需要设置的寄存器的值
+        ratio_info:收到的寄存器的值
+	返回值:
+        无
+*/
+static void fill_fpga_ratio_image_info(fpga_reg_val_info_t* reg_val, ratio_image_info_t* ratio_info)
+{
+    reg_val->chn = ratio_info->chn;
+    reg_val->chn_type = EXTERNAL_SOURCE_MODE;
+    reg_val->extraction = ratio_info->extraction;
+    reg_val->fill_column = ratio_info->fill_column;
+    reg_val->fill_row = ratio_info->fill_row;
+    reg_val->ratio = ratio_info->mode;
+    reg_val->src_height = ratio_info->src_height;
+    reg_val->src_width = ratio_info->src_width;
+    reg_val->zoom_height = ratio_info->height;
+    reg_val->zoom_width = ratio_info->width;
+
+    //SLOGI("[Debug] %s ratio:%d \n", __func__, ratio_info->mode);
+}
+
+/*
+	函数: fill_fpga_src_image_info(fpga_reg_val_info_t* reg_val, mpp_image_info_t* mpp_info)
+	作用: 实际编码图像寄存器的填充
+	参数:
+        reg_val：需要设置的寄存器的值
+        ratio_info:收到的寄存器的值
+	返回值:
+        无
+*/
+static void fill_fpga_src_image_info(fpga_reg_val_info_t* reg_val, mpp_image_info_t* mpp_info)
+{
+    reg_val->chn = mpp_info->chn;
+    reg_val->chn_type = EXTERNAL_SOURCE_MODE;
+    reg_val->extraction = mpp_info->extraction;
+    reg_val->fill_column = 0;
+    reg_val->fill_row = 0;
+    reg_val->ratio = 1;
+    reg_val->src_height = mpp_info->height;
+    reg_val->src_width = mpp_info->width;
+    reg_val->zoom_height = mpp_info->height;
+    reg_val->zoom_width = mpp_info->width;
+}
+
+/****************************************************************************************/
+/*
+	函数: static void axififo_send(unsigned char mode, unsigned int data)
+	作用: axififo 发送函数
+	参数:
+        mode：帧类型
+        data:发送的数据
+	返回值:
+        无
+*/
+static void axififo_send(unsigned char mode, unsigned int data)
+{
+    int ret;
+    unsigned int send_size;
+    uartlist_send_info_t send_info;
+
+    send_info.head = htons(0xec91);
+    send_info.len = 4;
+    send_info.mode = mode;
+    send_info.data = data;
+    send_info.sum = check_sum((unsigned char*)&send_info.data, sizeof(send_info.data));
+
+    send_size = 0;
+    while(1){
+        ret = stream_fifo_write_data(&g_axififo_info->fifo_reg,(uint8_t *)(&send_info + send_size),sizeof(send_info) - send_size);
+        if(ret == (sizeof(send_info) - send_size)){
+            break;
+        }
+        send_size += ret;
+        //usleep(1000);
+        xt_nanosleep(0, 100);
+    }
+
+    return ;
+}
+
+/***************axififo_frame_request_type1***********************************************/
+/*
+	函数: axififo_frame_request_type1(unsigned char* frame_buff, unsigned int frame_size)
+	作用: 帧类型1解析函数
+	参数:
+        frame_buff:帧类型1的数据buffer
+        frame_size:帧类型1的数据长度
+	返回值:
+        正确返回0，失败返回其他
+*/
+static int axififo_frame_request_type1(unsigned char* frame_buff, unsigned int frame_size)
+{
+
+    char date[128];
+    system_time_info_t *time_info;
+    pcie_timestamp_t t0, t1;
+    time_info = (system_time_info_t *)(frame_buff + 1);
+
+    get_pcie_timestamp(&t0);
+    /*设置年月日*/
+    memset(date, 0x0, sizeof(date));
+    sprintf(date, "date -s %d%.2d%.2d",(time_info->year),(time_info->mon),time_info->mday);
+    system(date);
+
+    /*设置时分秒*/
+    memset(date, 0x0, sizeof(date));
+    sprintf(date, "date -s %d:%d:%d",time_info->hour,time_info->min,time_info->sec);
+    system(date);
+    get_pcie_timestamp(&t1);
+
+    SLOGI("[Debug],t0.h:0x%x, t0.l:0x%x, t1.h:0x%x t1.l:0x%x diff:%ld \n", t0.time_h, t0.time_l, t1.time_h, t1.time_l,pcie_diff_timestamp(&t1, &t0));
+
+    return 0;
+}
+
+/****************************axififo_frame_request_type2******************************************/
+/*
+	函数: unsigned int axififo_frame_request_type2(unsigned char* frame_buff, unsigned int frame_size)
+	作用: 帧类型2解析函数
+	参数:
+        frame_buff:帧类型1的数据buffer
+        frame_size:帧类型1的数据长度
+	返回值:
+        正确返回0，失败返回其他
+*/
+static unsigned int axififo_frame_request_type2(unsigned char* frame_buff, unsigned int frame_size)
+{
+    unsigned int ret;
+    unsigned char chn;
+    fpga_chn_image_info_t* chn_image;
+    data_stream_t *data_stream = data_stream_get();
+
+    chn = frame_buff[1];
+    chn_image = data_stream->chn_image[chn];
+    memcpy(&chn_image->ratio_info, (frame_buff + 1), (frame_size - 1));
+
+    /*如果本通道已经初始化了，则跳过*/
+    if(chn_image->init_flag[DATA_INIT]){
+        return 0;
+    }
+
+    chn_image->init_flag[DATA_INIT] = 0;
+
+    chn_image->data_frame_max = 0;
+    /*设置帧buffer的个数*/
+    if((chn_image->ratio_info.src_width == VIDEO_FRAME_WIDTH_4k) && (chn_image->ratio_info.src_height == VIDEO_FRAME_HEIGHT_4k)){
+        chn_image->data_frame_max = DATA_4K_STREAM_FRAME_MAX;
+    } else {
+        chn_image->data_frame_max = DATA_STREAM_FRAME_MAX;
+    }
+
+    ret = data_stream_low_chn_thread_init(chn_image->ratio_info.chn);
+    if (ret != A818_SUCCESS) {
+        SLOGI("data_stream_low_chn_thread_init error \n");
+        return ret;
+    }
+    usleep(400*1000);
+
+    /*初始化资源*/
+    ret = data_stream_low_chn_data_init(chn_image->ratio_info.chn);
+    if (ret != A818_SUCCESS) {
+        SLOGI("chn data stream init error \n");
+        goto err;
+    }
+#ifndef DEBUG_IMAGE
+    fill_fpga_ratio_image_info(&chn_image->reg_val, &chn_image->ratio_info);
+#else
+    test_fill_fpga_ratio_image_info(&chn_image->reg_val, &chn_image->ratio_info);
+#endif
+    pcie_chn_image_reg_init(&chn_image->reg_val);
+
+    g_axififo_info->rk_enable = 1;
+
+    chn_image->init_flag[DATA_INIT] = 1;
+    // if(data_stream->ratio == VIDEO_RATIO_3){
+    //     chn_image->ratio_info.position = chn_image->ratio_info.position * 2 + 1;
+    // } 
+    data_stream->stitchbase_position |= 1 << chn_image->ratio_info.position;
+
+    return A818_SUCCESS;
+err:
+    data_stream_low_chn_thread_destory(chn_image->ratio_info.chn);
+    return ret;
+}
+
+/*********************************************************************/
+/*****************************axififo_frame_request_type4****************************************/
+/*
+	函数: unsigned int request_type4_data_init(fpga_chn_image_info_t* chn_image)
+	作用: 帧类型4的数据初始化
+	参数:
+        chn_image:通道结构体
+	返回值:
+        正确返回0，失败返回其他
+*/
+unsigned int request_type4_data_init(fpga_chn_image_info_t* chn_image)
+{
+    unsigned int ret;
+
+    if(chn_image->init_flag[DATA_INIT]){
+        return 0;
+    }
+    chn_image->init_flag[DATA_INIT] = 0;
+
+    /*判断是不是拼接通道*/
+    if(chn_image->mpp_info.chn != GPU_STITCHBASE_CHN) {
+        chn_image->data_frame_max = 0;
+        if((chn_image->mpp_info.width == VIDEO_FRAME_WIDTH_4k) && (chn_image->mpp_info.height == VIDEO_FRAME_HEIGHT_4k)){
+            chn_image->data_frame_max = DATA_4K_STREAM_FRAME_MAX;
+        } else {
+            chn_image->data_frame_max = DATA_STREAM_FRAME_MAX;
+        }
+    #ifndef DEBUG_IMAGE    
+        fill_fpga_src_image_info(&chn_image->reg_val, &chn_image->mpp_info);
+    #else
+        test_fill_fpga_src_image_info(&chn_image->reg_val, &chn_image->mpp_info);
+    #endif
+        pcie_chn_image_reg_init(&chn_image->reg_val);
+
+    } else {
+        chn_image->init_flag[DATA_INIT] = 0;
+        /*初始化拼接线程*/
+        ret = data_stream_stitchbase_thread_init();
+        if(ret != 0){
+            SLOGI("[DEBUG] data_stream_stitchbase_thread_init ERROR \n");
+            return ret;
+        }
+    }
+
+    chn_image->init_flag[DATA_INIT] = 1;
+
+    return 0;
+}
+
+/*
+	函数: void request_type4_data_destory(fpga_chn_image_info_t* chn_image)
+	作用: 帧类型4的资源的释放
+	参数:
+        chn_image:通道结构体
+	返回值:
+        无
+*/
+void request_type4_data_destory(fpga_chn_image_info_t* chn_image)
+{
+    if(!chn_image->init_flag[DATA_INIT]){
+        return ;
+    }
+
+    if(chn_image->mpp_info.chn != GPU_STITCHBASE_CHN) {
+        pcie_close_chn_enabne(chn_image->mpp_info.chn);
+    } else {
+        data_stream_stitchbase_thread_destory();
+    }
+
+    chn_image->init_flag[DATA_INIT] = 0;
+}
+
+/*
+	函数: int request_type4_osd_init(fpga_chn_image_info_t* chn_image)
+	作用: 帧类型4的字符叠加资源的初始化
+	参数:
+        chn_image:通道结构体
+	返回值:
+        正确返回0，失败返回其他
+*/
+static int request_type4_osd_init(fpga_chn_image_info_t* chn_image)
+{
+    
+    int ret;
+    data_stream_t *data_stream = data_stream_get();
+
+    if(chn_image->init_flag[OSD_INIT]){
+        return A818_FIFO_CMD_REINVENT;
+    }
+
+    chn_image->init_flag[OSD_INIT] = 0;
+
+    ret = gpu_osd_chn_image_init(chn_image->mpp_info.chn, chn_image->mpp_info.width, chn_image->mpp_info.height);
+    if (ret != 0) {
+        SLOGI("gpu_osd_chn_image_init error \n");
+        return ret;
+    }
+
+    chn_image->init_flag[OSD_INIT] = 1;
+
+    ret = gui_osd_overlapped_chn_init(chn_image->mpp_info.chn);
+    if(ret != 0){
+        SLOGI("gui_osd_overlapped_chn_init error \n");
+        goto err;
+    }
+
+    return 0;
+
+err:
+    gpu_osd_chn_image_destory(chn_image->mpp_info.chn);
+    chn_image->init_flag[OSD_INIT] = 0;
+    return ret;
+}
+
+/*
+	函数: void request_type4_osd_destory(fpga_chn_image_info_t* chn_image)
+	作用: 帧类型4的字符叠加资源的释放
+	参数:
+        chn_image:通道结构体
+	返回值:
+        无
+*/
+static void request_type4_osd_destory(fpga_chn_image_info_t* chn_image)
+{
+    data_stream_t *data_stream = data_stream_get();
+    if(!chn_image->init_flag[OSD_INIT]){
+        return ;
+    }
+    gui_osd_overlapped_chn_destory(chn_image->mpp_info.chn);
+    gpu_osd_chn_image_destory(chn_image->mpp_info.chn);
+    chn_image->init_flag[OSD_INIT] = 0;
+}
+
+/*
+	函数: static void mpp_encode_cmd_init(MpiEncAppArgs *encode_cmd, mpp_image_info_t *mpp_info)
+	作用: 编码相关的初始化
+	参数:
+        encode_cmd:mpp结构体
+        mpp_info：配置mpp相关资源的结构体
+	返回值:
+        无
+*/
+static void mpp_encode_cmd_init(MpiEncAppArgs *encode_cmd, mpp_image_info_t *mpp_info)
+{
+    encode_cmd->width = mpp_info->width; 
+    encode_cmd->height = mpp_info->height;
+
+    encode_cmd->format = MPP_FMT_YUV422SP;
+    //encode_cmd->format = MPP_FMT_YUV420SP;
+    if(mpp_info->mpp_type){
+        encode_cmd->type = MPP_VIDEO_CodingHEVC; /**< H.265/HEVC */
+    } else {
+        encode_cmd->type = MPP_VIDEO_CodingAVC;  /**< H.264/AVC */
+    }
+    
+    encode_cmd->fps_in_num = mpp_info->fps;
+    encode_cmd->fps_out_num = mpp_info->fps;
+    encode_cmd->bps_target = mpp_info->mpp_bps * 1024;
+}
+
+/*
+	函数: static int request_type4_mpp_init(fpga_chn_image_info_t* chn_image)
+	作用: 帧类型4编码相关的初始化
+	参数:
+        chn_image:通道结构体
+	返回值:
+        正确返回0，失败返回其他
+*/
+static int request_type4_mpp_init(fpga_chn_image_info_t* chn_image)
+{
+    int ret;
+    MpiEncAppArgs encode_cmd;
+
+    if(chn_image->init_flag[MPP_INIT]){
+        return 0;
+    }
+    chn_image->init_flag[MPP_INIT] = 0;
+    /*mpp相关的资源初始化*/
+    mpp_encode_cmd_init(&encode_cmd, &chn_image->mpp_info);
+    ret = mpp_encode_chn_init(chn_image->mpp_info.mpp_chn, chn_image->mpp_info.chn, &encode_cmd);
+    if (ret != 0) {
+        SLOGI("encode frame chn init error \n");
+        return ret;
+    }
+    chn_image->init_flag[MPP_INIT] = 1;
+
+    return 0;
+}
+
+/*
+	函数: void request_type4_mpp_destory(fpga_chn_image_info_t* chn_image)
+	作用: 帧类型4编码相关的释放
+	参数:
+        chn_image:通道结构体
+	返回值:
+        无
+*/
+static void request_type4_mpp_destory(fpga_chn_image_info_t* chn_image)
+{
+    if(!chn_image->init_flag[MPP_INIT]){
+        return ;
+    }
+    mpp_encode_chn_destory(chn_image->mpp_info.mpp_chn);
+    chn_image->init_flag[MPP_INIT] = 0;
+}
+
+/*
+	函数: unsigned int request_type4_dp_init(fpga_chn_image_info_t* chn_image)
+	作用: 帧类型4dp相关的资源初始化
+	参数:
+        chn_image:通道结构体
+	返回值:
+        正确返回0，失败返回其他
+*/
+static unsigned int request_type4_dp_init(fpga_chn_image_info_t* chn_image)
+{
+    int ret;
+    data_stream_t *data_stream = data_stream_get();
+
+    if(data_stream->dp_chn != 0){
+        SLOGI("dp chn init error \n");
+        return 0;
+    }
+
+    data_stream->dp_chn = 0;
+    /*初始化DP资源*/
+    ret = drm_dp_chn_image_init(chn_image->mpp_info.width, chn_image->mpp_info.height);
+    if (ret != 0) {
+        SLOGI("gpu_osd_chn_image_init error %d \n", ret);
+        return ret;
+    }
+
+    data_stream->dp_chn = chn_image->mpp_info.chn;
+
+    return 0;
+}
+
+/*
+	函数: int axififo_frame_request_type4(unsigned char* frame_buff, unsigned int frame_size)
+	作用: 帧类型4初始化
+	参数:
+        frame_buff:帧数据的buffer
+        frame_size:帧数据的buffer数据
+	返回值:
+        正确返回0，失败返回其他
+*/
+static int axififo_frame_request_type4(unsigned char* frame_buff, unsigned int frame_size)
+{
+    int ret;
+    int rc;
+    unsigned char chn;
+    fpga_chn_image_info_t* chn_image;
+    unsigned char mpp_type, dp_type, pc_type;
+    data_stream_t *data_stream = data_stream_get();
+    if(!data_stream){
+        printf("[Debug] %s data_stream error \n", __func__);
+        return 1;
+    }
+
+    rc = 0;
+
+    chn = frame_buff[1];
+    chn_image = data_stream->chn_image[chn];
+    if(!data_stream){
+        printf("[Debug] %s data_stream error \n", __func__);
+        return 1;
+    }
+
+    memcpy(&chn_image->mpp_info, (frame_buff + 1), (frame_size - 1));
+
+    /*判断输出的类型*/
+    switch(chn_image->mpp_info.out_type){
+        case NULL_OUT_TYPE:
+            mpp_type = 0;
+            dp_type = 0;
+            pc_type = 0;
+        break;
+        case MPP_OUT_TYPE:
+            mpp_type = 1;
+            dp_type = 0;
+            pc_type = 0;
+        break;
+        case DP_OUT_TYPE:
+            mpp_type = 0;
+            dp_type = 1;
+            pc_type = 0;
+        break;
+
+        case PC_OUT_TYPE:
+            mpp_type = 0;
+            dp_type = 0;
+            pc_type = 1;
+        break;
+
+        case MPP_DP_OUT_TYPE:
+            mpp_type = 1;
+            dp_type = 1;
+            pc_type = 0;
+        break;
+        case MPP_PC_OUT_TYPE:
+            mpp_type = 1;
+            dp_type = 0;
+            pc_type = 1;
+        break;
+        case DP_PC_OUT_TYPE:
+            mpp_type = 0;
+            dp_type = 1;
+            pc_type = 1;
+        break; 
+        case MPP_DP_PC_OUT_TYPE:
+            mpp_type = 1;
+            dp_type = 1;
+            pc_type = 1;
+        break; 
+        default:
+            mpp_type = 0;
+            dp_type = 0;
+            pc_type = 0;
+            return 1;
+    }
+
+    SLOGI("[DEBUG] mpp_type:%d dp_type:%d pc_type%d chn:(%d-%d) \n", mpp_type, dp_type, pc_type, chn, chn_image->mpp_info.chn);
+    /*是否是编码输出或者dp输出*/
+    if(mpp_type || dp_type){
+        ret =request_type4_data_init(chn_image);
+        if(ret != 0){
+            SLOGI("request_type4_data_init ERROR \n");
+            return ret;
+        }
+
+        usleep(10*1000);
+
+        ret = request_type4_osd_init(chn_image);
+        if(ret != 0){
+            SLOGI("request_type4_osd_init ERROR \n");
+            goto err_1;
+        }
+
+        usleep(10*1000);
+        /*如果编码输出，初始化编码资源*/
+        if(mpp_type){
+            ret = request_type4_mpp_init(chn_image);
+            if(ret != 0){
+                SLOGI("request_type4_mpp_init ERROR \n");
+                goto err_2;
+            }
+            usleep(10*1000);
+
+        }
+
+        g_axififo_info->rk_enable = 1;
+
+        /*如果是dp输出，初始化dp资源*/
+        if(dp_type){
+            ret = request_type4_dp_init(chn_image);
+            if(ret != 0){
+                SLOGI("request_type4_mpp_init ERROR \n");
+                //goto err_3;
+                rc = ret;
+            }
+            usleep(10*1000);
+        }
+    }
+
+    /*判断是不是原图输出，原图输出直接配置相关的寄存器即可*/
+    if(pc_type){
+        if(chn_image->mpp_info.chn != GPU_STITCHBASE_CHN){
+        #ifndef DEBUG_IMAGE
+            fill_fpga_src_image_info(&chn_image->reg_val, &chn_image->mpp_info);
+        #else
+            test_fill_fpga_src_image_info(&chn_image->reg_val, &chn_image->mpp_info);
+        #endif
+            pcie_pc_chn_image_reg_init(&chn_image->reg_val);
+        }
+        g_axififo_info->pc_enable = 1;
+    }
+
+    return rc;
+
+err_3:
+   if(mpp_type){
+        request_type4_mpp_destory(chn_image);
+   }
+err_2:
+    request_type4_osd_destory(chn_image);
+err_1:
+    request_type4_data_destory(chn_image);
+
+    return ret;
+
+}
+
+/*******************************************************************************/
+/******************axififo_frame_type6_selftest********************************/
+static int axififo_frame_type6_selftest(unsigned char mode)
+{
+#if 0
+    int ret;
+    unsigned int send_size;
+    uartlist_type6_info_t send_info;
+
+    send_info.head = htons(0xec91);
+    send_info.len = sizeof(send_info.selftest) + 1;
+    send_info.mode = mode;
+
+    pcie_get_selftest_val(&send_info.selftest);
+
+    send_info.sum = check_sum((unsigned char*)&send_info.mode, send_info.len);
+
+    send_size = 0;
+    while(1){
+        ret = stream_fifo_write_data(&g_axififo_info->fifo_reg,(uint8_t *)(&send_info + send_size),sizeof(send_info) - send_size);
+        if(ret == (sizeof(send_info) - send_size)){
+            break;
+        }
+        send_size += ret;
+        //usleep(1000);
+        xt_nanosleep(0, 100);
+    }
+#endif
+    return 0;
+}
+
+/***********************************************************************/
+/**************************axififo_frame_request_type7******************/
+/*
+	函数: void clean_system_buff_cache(void)
+	作用: 释放系统缓存
+	参数:
+        无
+	返回值:
+        无
+*/
+void clean_system_buff_cache(void)
+{
+    char cmd[128];
+    sprintf(cmd, "echo %d > /proc/sys/vm/drop_caches", 1);
+    system(cmd);
+    usleep(200*1000);
+
+    sprintf(cmd, "echo %d > /proc/sys/vm/drop_caches", 2);
+    system(cmd);
+    usleep(200*1000);
+
+    sprintf(cmd, "echo %d > /proc/sys/vm/drop_caches", 3);
+    system(cmd);
+    usleep(200*1000);
+    SLOGI("[Debug] %s ok \n", __func__);
+}
+
+/*
+	函数: void axififo_frame_request_type7(void)
+	作用: 帧类型7初始化
+	参数:
+        frame_buff:帧数据的buffer
+        frame_size:帧数据的buffer数据
+	返回值:
+        正确返回0，失败返回其他
+*/
+static void axififo_frame_request_type7(void)
+{
+    fpga_chn_image_info_t* chn_image;
+    data_stream_t *data_stream = data_stream_get();
+    mpi_encode_info_t* mpi_encode = mpi_encode_info_get();
+
+    pcie_fpga_device_stop();
+    sleep(1);
+    
+    data_stream->ratio = 0;
+    data_stream->stitchbase_position = 0;
+    data_stream->stitchbase_open = 0;
+    
+    /*判断各个通道的数据接收的ring buffer是否使用完成*/
+    for(int chn = 0; chn < DATA_CHANNEL_NUM_MAX; chn++){
+        chn_image = data_stream->chn_image[chn];
+        if(chn_image->init_flag[DATA_INIT]){
+            data_stream_chn_ringbuffer_is_empty(chn);
+        }
+
+        if(chn_image->init_flag[OSD_INIT]){
+            gpu_chn_ringbuffer_is_empty(chn_image->mpp_info.chn);
+        }
+
+        if(chn_image->init_flag[MPP_INIT]){
+            mpp_chn_ringbuffer_is_empty(chn_image->mpp_info.mpp_chn);
+        }
+    }
+
+    data_stream->stitchbase_open = 0;
+
+    /*判断osd的 ring buffer 是否使用完成*/
+    gui_osd_ringbuffer_is_empty();
+
+    /*判断dp的 ring buffer 是否使用完成*/
+    if(data_stream->dp_chn){
+        dp_chn_ringbuffer_is_empty();
+    }
+    SLOGI("[Debug] %s ringbuffer_is_empty ok \n", __func__);
+
+    /*释放申请的编码资源*/
+    for(int chn = 0; chn < DATA_CHANNEL_NUM_MAX; chn++){
+        chn_image = data_stream->chn_image[chn];
+        if(chn_image->init_flag[MPP_INIT]){
+            mpp_encode_chn_destory(chn_image->mpp_info.mpp_chn);
+        }
+        chn_image->init_flag[MPP_INIT] = 0;
+    }
+    SLOGI("[Debug] %s mpp_encode_chn_destory ok \n", __func__);
+    usleep(100*1000);
+
+    /*释放申请的接收数据的资源*/
+    for(int chn = 0; chn < DATA_CHANNEL_NUM_MAX; chn++){
+        gui_osd_overlapped_chn_destory(chn);
+        chn_image = data_stream->chn_image[chn];
+        if(chn_image->init_flag[OSD_INIT]){
+            gpu_osd_chn_image_destory(chn_image->mpp_info.chn);
+        }
+        chn_image->init_flag[OSD_INIT] = 0;
+    }
+    SLOGI("[Debug] %s gpu_osd_image_deinit ok \n", __func__);
+    usleep(100*1000);
+
+    /*释放申请的拼接小图的资源*/
+    for(int chn = 0; chn < DATA_CHANNEL_NUM_MAX; chn++){
+        chn_image = data_stream->chn_image[chn];
+        if(chn_image->init_flag[DATA_INIT]){
+            if(chn < DATA_RATIO_CHANNEL_MAX){
+                data_stream_low_chn_thread_destory(chn);
+                usleep(100*1000);
+                data_stream_low_chn_data_destory(chn);
+            }
+            
+            if(chn == GPU_STITCHBASE_CHN){
+                data_stream_stitchbase_thread_destory();
+            }
+        }
+
+        memset((void*)&chn_image->ratio_info, 0x0, sizeof(chn_image->ratio_info));
+        memset((void*)&chn_image->mpp_info, 0x0, sizeof(chn_image->mpp_info));
+        memset((void*)&chn_image->resize_info, 0x0, sizeof(chn_image->resize_info));
+        memset((void*)&chn_image->reg_val, 0x0, sizeof(chn_image->reg_val));
+
+        chn_image->ratio_info.position = 0xff;
+
+        chn_image->init_flag[DATA_INIT] = 0;
+        data_stream->stitchbase_chn_info[chn].flag = 0;
+    }
+    SLOGI("[Debug] %s data_stream_chn_data_destory ok \n", __func__);
+
+    data_stream->stitchbase_open = 0;
+    usleep(100*1000);
+
+    /*释放dp申请的资源*/
+    if(data_stream->dp_chn){
+        drm_dp_chn_image_destory();
+        data_stream->dp_chn = 0;
+    }
+    usleep(100*1000);
+
+    g_axififo_info->rk_enable = 0;
+    g_axififo_info->pc_enable = 0;
+    data_stream->gui_osd_flag = 0;
+    data_stream->no_signal_position = 0;
+    data_stream->stitchbase_index = 1;
+
+    mpi_encode->encode_size_max = MPP_OUTPUT_FRAME_SIZE;
+
+    memset(&data_stream->osd_info, 0x0, sizeof(data_stream->osd_info));
+    data_stream->stitchbase_osd_flag = 0;
+    clean_system_buff_cache();
+    pcie_fpga_reg_reset();
+}
+
+
+
+/********************************************************************/
+/*
+	函数: void fill_no_signal_position(void)
+	作用: 不同的拼接模式下的no signal位置标记
+	参数:
+        无
+	返回值:
+        无
+*/
+static void fill_no_signal_position(void)
+{
+    data_stream_t *data_stream = data_stream_get();
+    unsigned char ratio;
+
+    ratio = data_stream->ratio;
+    /*12选3拼接和12选9拼接是一样的，都是九宫格的拼接*/
+    if(ratio == VIDEO_RATIO_3){
+        ratio = VIDEO_RATIO_9;
+    }
+
+    data_stream->no_signal_position = 0;
+
+    /*根据实际输入的小图位置进行计算no signal的位置*/
+    for(int i = 0; i < ratio; i++){
+        if(((data_stream->stitchbase_position >> i) & 1) != 1) {
+            if(data_stream->ratio != VIDEO_RATIO_3){
+                data_stream->no_signal_position |= 1 << i;
+            } else {
+                if(((i % 2) == 1) & (i < 6)){
+                    data_stream->no_signal_position |= 1 << i;
+                }
+            }
+        }
+    }
+    SLOGI("[DEBUG] %s stitchbase_position:0x%x no_signal_position:0x%x \n", __func__, data_stream->stitchbase_position, data_stream->no_signal_position);
+}
+
+/*
+	函数: void picture_position_switching(unsigned char swap1, unsigned char swap2)
+	作用: 拼接位置交换
+	参数:
+        swap1：需要交换的位置1
+        swap2：需要交换的位置2
+	返回值:
+        无
+*/
+static void picture_position_switching(unsigned char swap1, unsigned char swap2)
+{
+    int chn;
+    unsigned char image_swap1, image_swap2;
+    unsigned char image_chn1, image_chn2;
+    fpga_chn_image_info_t* chn_image;
+    unsigned int  stitchbase_position;
+    unsigned int  no_signal_position;
+    data_stream_t *data_stream = data_stream_get();
+
+    image_swap1 = swap1;
+    image_swap2 = swap2;
+
+    // if(data_stream->ratio != VIDEO_RATIO_3){
+    //     image_swap1 = swap1;
+    //     image_swap2 = swap2;
+    // } else {
+    //     image_swap1 = swap1 * 2 + 1;
+    //     image_swap2 = swap2 * 2 + 1;
+    // }
+
+    stitchbase_position = data_stream->stitchbase_position;
+    no_signal_position = data_stream->no_signal_position;
+
+    SLOGI("[Debug] image_swap1:%d image_swap2:%d stitchbase_position:%d no_signal_position:%d \n", image_swap1, image_swap2,\
+        stitchbase_position, no_signal_position);
+
+    /*先判断交换位置1是no signal图像还是实际的图像*/
+    if((stitchbase_position >> image_swap1 & 0x1) == 1){
+        for(chn = 0; chn < 12; chn++){
+            chn_image = data_stream->chn_image[chn];
+            if((chn_image->init_flag[DATA_INIT]) && (chn_image->ratio_info.position == image_swap1)){
+                image_chn1 = chn;
+            }
+        }
+    } else {
+        image_chn1 = 0xff;
+    }
+
+    /*先判断交换位置2是no signal图像还是实际的图像*/
+    if((stitchbase_position >> image_swap2 & 0x1) == 1){
+        for(chn = 0; chn < 12; chn++){
+            chn_image = data_stream->chn_image[chn];
+            if((chn_image->init_flag[DATA_INIT]) && (chn_image->ratio_info.position == image_swap2)){
+                image_chn2 = chn;
+            }
+        }
+
+    } else {
+        image_chn2 = 0xff;
+    }
+
+    /*如果交换位置1和交换位置2都是实际的图像*/
+    if((image_chn1 != 0xff) && (image_chn2 != 0xff)){
+        /*先将原本的位置清除掉*/
+        chn_image = data_stream->chn_image[image_chn1];
+        stitchbase_position &= ~(1 << chn_image->ratio_info.position);
+
+        chn_image = data_stream->chn_image[image_chn2];
+        stitchbase_position &= ~(1 << chn_image->ratio_info.position);
+
+        /*更新通道的位置*/
+        chn_image = data_stream->chn_image[image_chn1];
+        chn_image->ratio_info.position = image_swap2;
+        stitchbase_position |= (1 << chn_image->ratio_info.position);
+
+        chn_image = data_stream->chn_image[image_chn2];
+        chn_image->ratio_info.position = image_swap1;
+        stitchbase_position |= (1 << chn_image->ratio_info.position);
+        SLOGI("[Debug] -2- %s %d %d \n", __func__, image_swap1, stitchbase_position);
+
+    } else if((image_chn1 == 0xff) && (image_chn2 != 0xff)){ /*位置2是真实图，位置1是no signal*/
+        no_signal_position &= ~(1 << image_swap1);
+        no_signal_position |= (1 << image_swap2);
+
+        chn_image = data_stream->chn_image[image_chn2];
+        stitchbase_position &= ~(1 << chn_image->ratio_info.position);
+
+        chn_image->ratio_info.position = image_swap1;
+        stitchbase_position |= (1 << image_swap1);
+
+    } else if((image_chn1 != 0xff) && (image_chn2 == 0xff)){/*位置1是真实图，位置2是no signal*/
+        chn_image = data_stream->chn_image[image_chn1];
+        stitchbase_position &= ~(1 << chn_image->ratio_info.position);
+
+        chn_image->ratio_info.position = image_swap2;
+        stitchbase_position |= (1 << image_swap2);
+
+        no_signal_position &= ~(1 << image_swap2);
+        no_signal_position |= (1 << image_swap1);
+    } else { /*位置1 和 位置2都是no signal*/
+        // no_signal_position &= ~(1 << image_swap1);
+        // no_signal_position |= (1 << image_swap2);
+
+        // no_signal_position &= ~(1 << image_swap2);
+        // no_signal_position |= (1 << image_swap1);
+    }
+
+    /*更新交换后的 真实图像的拼接位置和no signal的位置*/
+    data_stream->stitchbase_position = stitchbase_position;
+    data_stream->no_signal_position = no_signal_position;
+ 
+    // stitchbase_position = data_stream->stitchbase_position;
+    // no_signal_position = data_stream->no_signal_position;
+
+    SLOGI("[Debug] image_swap1:%d image_swap2:%d stitchbase_position:%d no_signal_position:%d \n", image_swap1, image_swap2,\
+        data_stream->stitchbase_position, data_stream->no_signal_position);
+}
+
+/*
+	函数: axififo_frame_data_analyse(unsigned char* frame_buffer, unsigned int frame_size)
+	作用: 完整大帧的解析
+	参数:
+        frame_buffer:完整大帧的数据buffer
+        frame_size:完整大帧的数据长度
+	返回值:
+        无
+*/
+static void axififo_frame_data_analyse(unsigned char* frame_buffer, unsigned int frame_size)
+{
+    int ret;
+    unsigned int cmd_ok;
+    unsigned char swap1,swap2;
+    fpga_chn_image_info_t* chn_image;
+    data_stream_t *data_stream = data_stream_get();
+    mpi_encode_info_t* mpi_encode = mpi_encode_info_get();
+
+    cmd_ok = A818_SUCCESS;
+    upgrade_state = 0xf1;
+
+    /*判断是那种帧类型*/
+    switch(frame_buffer[0]){ 
+        case UARTLIST_REQUEST_TYPE1:
+            cmd_ok = axififo_frame_request_type1(frame_buffer, frame_size);
+            SLOGI("[Debug]++++UARTLIST_REQUEST_TYPE1+++++\n");
+            break;
+
+        case UARTLIST_REQUEST_TYPE2:
+            cmd_ok = axififo_frame_request_type2(frame_buffer, frame_size);
+            if(cmd_ok != A818_SUCCESS){
+                SLOGI("set uartlist request type2 error(%d) \n", cmd_ok);
+            } 
+            SLOGI("[Debug]++++UARTLIST_REQUEST_TYPE2+++++\n");
+            break;
+
+        case UARTLIST_REQUEST_TYPE3:
+            cmd_ok = A818_SUCCESS;
+
+            pthread_mutex_lock(&data_stream->osd_lock);
+            memset(&data_stream->osd_info, 0x0, sizeof(data_stream->osd_info));
+            memcpy(&data_stream->osd_info, frame_buffer + 1, (frame_size - 1));
+
+            pthread_mutex_lock(&data_stream->swap_lock);
+            rgb888_output_image_init(data_stream->osd_info.color);
+            pthread_mutex_unlock(&data_stream->swap_lock);
+            
+            data_stream->stitchbase_osd_flag = 0;
+            pthread_mutex_unlock(&data_stream->osd_lock);
+            SLOGI("[Debug]++++UARTLIST_REQUEST_TYPE3+++++\n");
+            usleep(1000);
+            break;
+
+        case UARTLIST_REQUEST_TYPE4:
+            cmd_ok = axififo_frame_request_type4(frame_buffer, frame_size);
+            if(cmd_ok != A818_SUCCESS){
+                SLOGI("set uartlist request type4 error %d \n", cmd_ok);
+            }
+
+            SLOGI("[Debug]++++UARTLIST_REQUEST_TYPE4+++++\n");
+            break;
+
+        case UARTLIST_REQUEST_TYPE5:
+            if(frame_buffer[1] == UARTLIST_FRAME_ENABLE){
+                cmd_ok = A818_SUCCESS;
+                sleep(1);
+                fill_no_signal_position();
+                rgb888_output_image_init(0);
+                if(g_axififo_info->rk_enable) {
+                    pcie_set_rk_enable(1);
+                    data_stream->stitchbase_open = 1;
+                }
+
+                if(g_axififo_info->pc_enable) {
+                    pcie_set_pc_enable(1);
+                }
+                
+            } else {
+                cmd_ok = A818_FIFO_ENABLE_ERROR;
+            }
+            SLOGI("[Debug]++++UARTLIST_REQUEST_TYPE5+++++\n");
+            break;
+
+        case UARTLIST_REQUEST_TYPE6:
+            cmd_ok = A818_SUCCESS;
+            cmd_ok = strtoul(A818_RK3588_VERSION, 0, 0);
+            SLOGI("[Debug]++++UARTLIST_REQUEST_TYPE6:0x%x +++++\n", cmd_ok);
+            break;
+        case UARTLIST_REQUEST_TYPE7:
+            if(frame_buffer[1] == UARTLIST_FRAME_ENABLE){
+                cmd_ok = A818_SUCCESS;
+                axififo_frame_request_type7();
+                SLOGI("[Debug]++++UARTLIST_REQUEST_TYPE7+++++\n");
+            }
+            break; 
+        case UARTLIST_REQUEST_TYPE8:
+            cmd_ok = A818_SUCCESS;
+
+            chn_image = data_stream->chn_image[frame_buffer[1]];
+
+            if(data_stream->dp_chn){
+                data_stream->dp_chn = 0;
+                usleep(100*1000);
+                dp_chn_ringbuffer_is_empty();
+                drm_dp_chn_image_destory();
+            }
+
+            usleep(100*1000);
+
+            if(chn_image->init_flag[DATA_INIT]) {
+                cmd_ok = request_type4_dp_init(chn_image);
+                if(cmd_ok != 0){
+                    SLOGI("request_type4_mpp_init ERROR \n");
+                } else {
+                    pthread_mutex_lock(&data_stream->dp_lock);
+                    data_stream->dp_chn = frame_buffer[1];
+                    pthread_mutex_unlock(&data_stream->dp_lock);
+                }
+            }
+            
+            SLOGI("[Debug]++++UARTLIST_REQUEST_TYPE8+++++\n");
+            break; 
+
+        case UARTLIST_REQUEST_TYPE9:
+            cmd_ok = A818_SUCCESS;
+
+            swap1 = frame_buffer[1];
+            swap2 = frame_buffer[2];
+            pthread_mutex_lock(&data_stream->swap_lock);
+            picture_position_switching(swap1, swap2);
+            rgb888_output_image_init(data_stream->osd_info.color);
+            pthread_mutex_unlock(&data_stream->swap_lock);
+            SLOGI("[Debug]++++UARTLIST_REQUEST_TYPE9+++++\n");
+            break;
+
+        case UARTLIST_REQUEST_TYPE10:
+            cmd_ok = A818_SUCCESS;
+            mpi_encode->encode_size_max = (frame_buffer[1] * 1024);
+            SLOGI("[Debug]++++UARTLIST_REQUEST_TYPE10+++++\n");
+            break;
+        case UARTLIST_REQUEST_TYPE11:
+            cmd_ok = A818_SUCCESS;
+            if(frame_buffer[1] == 0x1){
+                data_stream->gui_osd_flag |= (1 << GUI_OSD_CHN_MASK);
+            } else if(frame_buffer[1] == 0x2){
+                data_stream->gui_osd_flag |= (1 << GUI_STITCHBASE_CHN_MASK);
+            } else if(frame_buffer[1] == 0xff){
+                data_stream->gui_osd_flag |= (1 << GUI_OSD_CHN_MASK);
+                data_stream->gui_osd_flag |= (1 << GUI_STITCHBASE_CHN_MASK);
+            }
+
+            SLOGI("[Debug] %d %d \n", frame_buffer[1], data_stream->gui_osd_flag);
+            SLOGI("[Debug]++++UARTLIST_REQUEST_TYPE11+++++\n");
+            break;
+
+        case UARTLIST_REQUEST_TYPE12:
+            cmd_ok = A818_SUCCESS;
+
+            if(frame_buffer[1] == 0x1){
+                data_stream->gui_osd_flag &= ~(1 << GUI_OSD_CHN_MASK);
+            } else if(frame_buffer[1] == 0x2){
+                data_stream->gui_osd_flag &= ~(1 << GUI_STITCHBASE_CHN_MASK);
+            } else if(frame_buffer[1] == 0xff){
+                data_stream->gui_osd_flag &= ~(1 << GUI_OSD_CHN_MASK);
+                data_stream->gui_osd_flag &= ~(1 << GUI_STITCHBASE_CHN_MASK);
+            }
+
+            SLOGI("[Debug] %d %d \n", frame_buffer[1], data_stream->gui_osd_flag);
+            SLOGI("[Debug]++++UARTLIST_REQUEST_TYPE12+++++\n");
+            break;
+        case UARTLIST_REQUEST_TYPE13:
+            cmd_ok = A818_SUCCESS;
+            pthread_mutex_lock(&data_stream->osd_lock);
+            data_stream->stitchbase_osd_flag = 1;
+
+            pthread_mutex_lock(&data_stream->swap_lock);
+            memset(&data_stream->osd_info, 0x0, sizeof(data_stream->osd_info));
+            rgb888_output_image_init(0);
+            pthread_mutex_unlock(&data_stream->swap_lock);
+
+            pthread_mutex_unlock(&data_stream->osd_lock);
+            SLOGI("[Debug] %d %d \n", frame_buffer[1], data_stream->gui_osd_flag);
+            SLOGI("[Debug]++++UARTLIST_REQUEST_TYPE13+++++\n");
+            break;
+        case UARTLIST_REQUEST_TYPE14:
+            cmd_ok = A818_SUCCESS;
+            upgrade_num = frame_buffer[1] << 24 | frame_buffer[2] << 16 | frame_buffer[3] << 8 | frame_buffer[4];
+            upgrade_num = htonl(upgrade_num);
+            if(!upgrade_num){
+                upgrade_size = frame_buffer[5] << 24 | frame_buffer[6] << 16 | frame_buffer[7] << 8 | frame_buffer[8];
+                upgrade_size = htonl(upgrade_size);
+
+                if(upgrade_buffer){
+                    free(upgrade_buffer);
+                }
+
+                upgrade_buffer = (unsigned char*)malloc(upgrade_size);
+                if(upgrade_buffer == NULL){
+                    cmd_ok = A818_FIFO_3588_UPGRADE_MALLOC;
+                    break;
+                }
+                memset(upgrade_file_name, 0x0, sizeof(upgrade_file_name));
+                sprintf(upgrade_file_name, "%s%s", ZPK_PWD, frame_buffer+9);
+                SLOGI("[Debug] upgrade file name:%s \n", upgrade_file_name);
+                printf("[Debug]:upgrade num:%d size:%d pkgsize:%d \n",upgrade_num, upgrade_size, frame_size);
+            } else {
+                /*如果总长度为RK3588_UPGRADE_DATA_START，表示没有有效数据，则表示升级数据传输完成*/
+                if(frame_size == RK3588_UPGRADE_DATA_START){
+                    if(!upgrade_buffer){
+                        break;
+                    }
+
+                    ret = save_image_data(upgrade_buffer, upgrade_size, upgrade_file_name);
+                    if(ret){
+                        cmd_ok = A818_FIFO_3588_UPGRADE_WRITE;
+                    }
+
+                    free(upgrade_buffer);
+                    upgrade_buffer = NULL;
+                    SLOGI("[DEBUG]-- UPGRADE FILE WRITE OK --- \n");
+                    
+                    sync();
+                    sleep(1);
+                    system("/tmp/real_part/script/unpacker.sh");
+                }else {
+                    memcpy(upgrade_buffer + ((upgrade_num - 1)*RK3588_UPGRADE_DATA_SIZE), frame_buffer+RK3588_UPGRADE_DATA_START, (frame_size - RK3588_UPGRADE_DATA_START));
+                }
+            }
+            break;
+        case UARTLIST_REQUEST_TYPE15:
+                cmd_ok = read_zpk_upgrade_state();
+            break;
+        default: 
+            cmd_ok = A818_FIFO_CMD_ERROR;
+            SLOGI("set uartlist request type%d error \n", frame_buffer[0]);
+            break;
+    }
+
+    axififo_send(frame_buffer[0], cmd_ok);
+    // if(frame_buffer[0] == UARTLIST_REQUEST_TYPE1){
+    //     SLOGI("############# exit %d ##################\n", frame_buffer[0]);
+    //     exit(0);
+    // }
+}
+/******************************************************************************************/
+
+/*
+	函数: axififo_recv_data_analysis(unsigned char *buffer, unsigned int length)
+	作用: 对接收到的数据进行解析，解析出来一帧完整帧，在做判断
+	参数:
+        buffer:接收到的数据
+        length:接收到的数据长度
+	返回值:
+        返回0表示有一帧完整帧，其他表示没有完整帧
+*/
+static int axififo_recv_data_analysis(unsigned char *buffer, unsigned int length)
+{
+
+    uint8_t sum;
+    unsigned int cmd_val;
+	int i = 0, j = 0, index = 0;
+    int ret = -1;
+    unsigned char frame_length;
+    unsigned char *frame_buff;
+    image_frame_info_t frame_info;
+    
+	for(index = 0; index < length; index++) {
+		local_buffer[(axififo_count + index) % PCIE_AXIFIFO_BUF_SIZE_MAX] = buffer[index];
+	}
+
+	axififo_count += length;
+
+    if((axififo_count - axififo_index) < (AXIFIFO_HEAD_SIZE + AXIFIFO_LENGH_SIZE)){
+        return 4;
+    }
+
+	for(i = axififo_index; i < (axififo_count - 2); i++) {
+		if(local_buffer[i % PCIE_AXIFIFO_BUF_SIZE_MAX] == msg_head_1 && local_buffer[(i + 1) % PCIE_AXIFIFO_BUF_SIZE_MAX] == msg_head_2) {    
+            frame_length = local_buffer[(i + 2) % PCIE_AXIFIFO_BUF_SIZE_MAX];
+            if(frame_length < (axififo_count - i - 3)){
+            
+                frame_buff = g_axififo_info->axififo_data;
+                for(j = 0; j < frame_length; j++){
+                    frame_buff[j] = local_buffer[(i + j + 3) % PCIE_AXIFIFO_BUF_SIZE_MAX];
+                }
+
+                sum = check_sum(frame_buff, frame_length);
+                if(sum == local_buffer[(i + frame_length + 2 + 1) % PCIE_AXIFIFO_BUF_SIZE_MAX]){
+                    axififo_frame_data_analyse(frame_buff, frame_length);
+                } else {
+                    SLOGI("uartlist frame data sum error,len:%d sum(0x%x 0x%x) \n", frame_length, \
+                        sum, local_buffer[(i + frame_length + 2 + 1) % PCIE_AXIFIFO_BUF_SIZE_MAX]);
+                    cmd_val = A818_FIFO_CMD_SUM_ERROR;
+                    axififo_send(frame_buff[0], cmd_val);
+                }
+     
+				axififo_index = i + frame_length + 4;
+				i = axififo_index - 1;
+				ret = 0;
+			} else {
+				axififo_index = i;
+                ret = 2;
+				break;
+			}
+            
+		} else {
+            ret = 3;
+        }
+	}
+
+    return ret;
+}
+
+/*
+	函数: static void *axififo_recv_data_pthread(void* parameter)
+	作用: 数据接收线程
+	参数:
+        parameter:线程参数
+	返回值:
+        线程返回值
+*/
+static void *axififo_recv_data_pthread(void* parameter)
+{
+	int recv_cnt;
+    unsigned char RecvBuffer[AXIFIFO_RECV_DATA_SIZE];
+
+    while(1){
+        /*读取长度，长度不为0，表示有数据*/
+        recv_cnt = stream_fifo_read_data_len(&g_axififo_info->fifo_reg);
+        if(recv_cnt > 0){
+            stream_fifo_read_data(&g_axififo_info->fifo_reg, RecvBuffer, recv_cnt);
+            axififo_recv_data_analysis(RecvBuffer,recv_cnt);
+        }
+        //usleep(10);
+        xt_nanosleep(0, 100);
+    }
+
+	return NULL;
+}
+
+/*
+	函数: int axififo_data_init(void)
+	作用: axi-fifo相关的资源初始化
+	参数:
+        无
+	返回值:
+        正常返回0，错误返回其他
+*/
+int axififo_data_init(void)
+{
+	int ret;
+	pthread_t recv_tid;
+    
+	g_axififo_info = (axififo_info_t*)malloc(sizeof(axififo_info_t));
+	if(NULL == g_axififo_info){
+		printf("[ERROR] axififo info malloc error \n");
+		return A818_FIFO_DATA_INFO;
+	}
+
+    memset(g_axififo_info, 0, sizeof(axififo_info_t));
+
+    /*初始化axi-fifo的配置地址*/
+    g_axififo_info->fifo_reg.cfg = (config_reg_t *)pcie_bar_mmap(FPGA_PCIE_AXIFIFO_PHY, FPGA_PCIE_AXIFIFO_LEN);
+    if(g_axififo_info->fifo_reg.cfg == NULL){
+        printf("[ERROR] pcie axififo config reg error \n");
+        ret = A818_FIFO_CONFIG_REG_MMAP;
+        goto err_1;
+    }
+
+    /*初始化axi-fifo的发送数据的buffer地址*/
+    g_axififo_info->fifo_reg.send_data = (config_reg_t *)pcie_bar_mmap(FPGA_PCIE_DATA_PHY, FPGA_PCIE_DATA_LEN);
+    if(g_axififo_info->fifo_reg.send_data == NULL){
+        printf("[ERROR] pcie axififo data reg error \n");
+        ret = A818_FIFO_DATA_REG_MMAP;
+        goto err_2;
+    }
+
+    /*初始化axi-fifo的接收数据的buffer地址*/
+    g_axififo_info->fifo_reg.recv_data = (void*)((unsigned long)g_axififo_info->fifo_reg.send_data + FPGA_PCIE_READ_DATA_OFFSET);
+    stream_fifo_reset(&g_axififo_info->fifo_reg);
+
+	ret = pthread_create(&recv_tid,NULL,&axififo_recv_data_pthread,NULL);;
+    if (ret != 0) {
+        printf("[ERROR] Create axififo_recv_data_pthread thread failed %d\n",ret);
+        ret = A818_FIFO_RECV_THREAD;
+        goto err_3;
+    }
+
+	return A818_SUCCESS;
+
+err_3:
+    pcie_bar_munmap(g_axififo_info->fifo_reg.send_data, FPGA_PCIE_AXIFIFO_LEN);
+err_2:
+    pcie_bar_munmap(g_axififo_info->fifo_reg.cfg, FPGA_PCIE_AXIFIFO_LEN);
+err_1:
+	free(g_axififo_info);
+	return ret;
+}
+
+/*
+	函数: void axififo_data_destory(void)
+	作用: axi-fifo相关的资源释放
+	参数:
+        无
+	返回值:
+        无
+*/
+void axififo_data_destory(void)
+{
+	int index;
+	if(NULL != g_axififo_info){
+        pcie_bar_munmap(g_axififo_info->fifo_reg.send_data, FPGA_PCIE_AXIFIFO_LEN);
+        pcie_bar_munmap(g_axififo_info->fifo_reg.cfg, FPGA_PCIE_AXIFIFO_LEN);
+		free(g_axififo_info);
+	}
+	return ;
+}
+
+

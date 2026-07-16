@@ -1,0 +1,711 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "rk_a818_prj"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"link_directories",
+			"target_link_libraries",
+			"add_definitions",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 82,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 59,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 98,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 24,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 26,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-O2 -std=c++11 -Wno-error"
+				},
+				{
+					"fragment" : "-std=gnu++14"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 4,
+					"define" : "LINUX"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "_GNU_SOURCE"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/opencv4"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/mpp"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/libdrm"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/Interface"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI/Config"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI/GUI/Core"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI/GUI/MultiLayer"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI/GUI/Widget"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI/GUI/WM"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/common"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/log"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/utils"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/osal/inc"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/base"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/gpu"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/rga"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/osd"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/pcie"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/fifo"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/drm_dp"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/uart"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/system"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					1
+				],
+				"standard" : "14"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				11,
+				12,
+				19
+			]
+		},
+		{
+			"defines" : 
+			[
+				{
+					"backtrace" : 4,
+					"define" : "LINUX"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "_GNU_SOURCE"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/opencv4"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/mpp"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/libdrm"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/Interface"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI/Config"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI/GUI/Core"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI/GUI/MultiLayer"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI/GUI/Widget"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI/GUI/WM"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/common"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/log"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/utils"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/osal/inc"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/base"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/gpu"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/rga"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/osd"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/pcie"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/fifo"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/drm_dp"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/uart"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/system"
+				}
+			],
+			"language" : "C",
+			"sourceIndexes" : 
+			[
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				20,
+				21,
+				22,
+				23,
+				24
+			]
+		}
+	],
+	"id" : "rk_a818_prj::@6890427a1f51a3e7e1df",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-O2 -std=c++11 -Wno-error",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-L/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/lib",
+				"role" : "libraryPath"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-L/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/lib/rockchip",
+				"role" : "libraryPath"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-L/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/lib/opencv",
+				"role" : "libraryPath"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-L/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI",
+				"role" : "libraryPath"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-L/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/lib/drm",
+				"role" : "libraryPath"
+			},
+			{
+				"fragment" : "-Wl,-rpath,/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/lib:/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/lib/rockchip:/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/lib/opencv:/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI:/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/lib/drm",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lopencv_core",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lopencv_calib3d",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lopencv_imgproc",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lopencv_highgui",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lopencv_photo",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lopencv_imgcodecs",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lopencv_videoio",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lopencv_dnn",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lopencv_features2d",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lopencv_flann",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lopencv_ml",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lopencv_objdetect",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lopencv_video",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lpthread",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-ldrm",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lm",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lrockchip_mpp",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lhetero_rk3588",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lucgui_rk3588",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lrga",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lrt",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-ldl",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "rk_a818_prj",
+	"nameOnDisk" : "rk_a818_prj",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/main.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/log/logd_write.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/mpp/mpi_decode.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/mpp/mpi_encode.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/mpp/utils/mpi_dec_utils.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/mpp/utils/mpi_enc_utils.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/mpp/utils/mpp_enc_roi_utils.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/mpp/utils/mpp_opt.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/mpp/utils/utils.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/common/ringbuffer.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/common/xutils.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/gpu/gpu_interface.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/rga/rga_interface.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/fifo/stream_fifo.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/pcie/dma_utils.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/pcie/pcie_impl.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/pcie/pcie_reg_rw.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/drm_dp/drm_utils.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/uart/uart_comm.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/system/data_engine.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/system/dp_engine.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/system/fifo_engine.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/system/osd_engine.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/system/pcie_engine.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/system/rs232_engine.c",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}

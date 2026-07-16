@@ -1,0 +1,3 @@
+#! /bin/bash
+CROSS_TOOL_PATH=~/3588_work/rk3588_toolchain/bin
+export PATH=$PATH:$CROSS_TOOL_PATH
