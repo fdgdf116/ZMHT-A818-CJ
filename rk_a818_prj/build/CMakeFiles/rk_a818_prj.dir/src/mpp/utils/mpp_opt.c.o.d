@@ -1,7 +1,7 @@
 CMakeFiles/rk_a818_prj.dir/src/mpp/utils/mpp_opt.c.o: \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/utils/mpp_opt.c \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/mpp/utils/mpp_opt.c \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/stdc-predef.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/osal/inc/mpp_mem.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/mpp/osal/inc/mpp_mem.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/stdlib.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/libc-header-start.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/features.h \
@@ -47,13 +47,13 @@ CMakeFiles/rk_a818_prj.dir/src/mpp/utils/mpp_opt.c.o: \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/struct_rwlock.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/alloca.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/stdlib-float.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/mpp/rk_type.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/mpp/mpp_err.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/mpp/mpp_log.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/mpp/rk_type.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/mpp/mpp_log_def.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/base/mpp_trie.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/osal/inc/mpp_common.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/mpp/rk_type.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/mpp/mpp_err.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/mpp/mpp_log.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/mpp/rk_type.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/mpp/mpp_log_def.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/mpp/base/mpp_trie.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/mpp/osal/inc/mpp_common.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/stdio.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/include/stdarg.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/types/__fpos_t.h \
@@ -78,4 +78,4 @@ CMakeFiles/rk_a818_prj.dir/src/mpp/utils/mpp_opt.c.o: \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/statx-generic.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/types/struct_statx_timestamp.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/types/struct_statx.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/utils/mpp_opt.h
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/mpp/utils/mpp_opt.h

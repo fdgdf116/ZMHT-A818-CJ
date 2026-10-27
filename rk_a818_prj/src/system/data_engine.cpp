@@ -1,3 +1,4 @@
+#include "stream_lifecycle.h"
 /*
  * File      : data_engine.c
  * This file is data engine file  
@@ -661,6 +662,7 @@ static void data_stream_no_signal_image_stitchbase_init(unsigned char position)
 		线程返回值
 */
 
+static int stitchbase_thread_created;
 static void *data_stream_image_stitchbase_thread(void* parameter)
 {
 
@@ -697,10 +699,12 @@ static void *data_stream_image_stitchbase_thread(void* parameter)
 
     while(1){
 
-        if(!data_stream->stitchbase_stop) {
+        if(!__atomic_load_n(&data_stream->stitchbase_stop, __ATOMIC_ACQUIRE)) {
             break;
         }
 
+        STREAM_WORK_GUARD(work, STREAM_WORK);
+        if (!work.active) { usleep(1000); continue; }
         stitchbase_time = 0;
 
         if((frame_cnt %30) == 0){
@@ -908,14 +912,9 @@ static void *data_stream_low_chn_rga_thread(void* parameter)
             break;
         }
         
-        while(ringbuffer_is_empty(rb)){
-            time.tv_sec=0;
-            time.tv_usec=(1);
-            select(0,NULL,NULL,NULL,&time);
-            if(!chn_image->stop_flag){
-                goto stop;
-            }  
-        }
+        STREAM_WORK_GUARD(work, STREAM_WORK);
+        if (!work.active) { usleep(1000); continue; }
+        if (ringbuffer_is_empty(rb)) { usleep(1); continue; }
         ringbuffer_get(rb, (uint8_t *)&frame_info, sizeof(image_frame_info_t));
 
         if(chn_image->rga_rb_offset >= chn_image->data_frame_max){
@@ -1014,6 +1013,8 @@ static void *data_stream_low_chn_rga_thread(void* parameter)
     data_stream_t *data_stream = data_stream_get();
 
     while(1){
+        STREAM_WORK_GUARD(work, STREAM_WORK);
+        if (!work.active) { usleep(1000); continue; }
         for(data_chn = 0; data_chn < DATA_RATIO_CHANNEL_MAX; data_chn++){
             rb = data_stream->chn_image[data_chn]->chn_data_rb; /* PCIE通道的rb */
             chn_image = data_stream->chn_image[data_chn];
@@ -1138,14 +1139,24 @@ unsigned int data_stream_stitchbase_thread_init(void)
     int ret;
     data_stream_t *data_stream = data_stream_get();
 
-    gs_data_stream->stitchbase_stop = 1;
+    __atomic_store_n(&gs_data_stream->stitchbase_stop, 1, __ATOMIC_RELEASE);
     ret = pthread_create(&gs_data_stream->tid, NULL, &data_stream_image_stitchbase_thread, NULL);
     if (ret != 0) {
         printf("[ERROR] Create data_stream_image_stitchbase_thread failed %d\n",ret);
         return A818_DATA_STITCHBASE_THREAD;
     }
 
+    stitchbase_thread_created = 1;
     return 0;
+}
+
+int data_stream_stop_stitchbase(unsigned int timeout_ms)
+{
+    __atomic_store_n(&gs_data_stream->stitchbase_stop, 0, __ATOMIC_RELEASE);
+    if (!stitchbase_thread_created) return 0;
+    int ret = stream_join_thread(gs_data_stream->tid, timeout_ms);
+    if (!ret) stitchbase_thread_created = 0;
+    return ret;
 }
 
 /*
@@ -1160,7 +1171,7 @@ void data_stream_stitchbase_thread_destory(void)
 {
     data_stream_t *data_stream = data_stream_get();
     if(gs_data_stream->stitchbase_stop) {
-        gs_data_stream->stitchbase_stop = 0;
+        __atomic_store_n(&gs_data_stream->stitchbase_stop, 0, __ATOMIC_RELEASE);
         xt_nanosleep(0, 1000*1000);
     }
 }

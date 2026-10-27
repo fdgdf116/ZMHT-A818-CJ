@@ -1,5 +1,5 @@
 CMakeFiles/rk_a818_prj.dir/src/pcie/pcie_impl.c.o: \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/pcie/pcie_impl.c \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/pcie/pcie_impl.c \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/stdc-predef.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/fcntl.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/features.h \
@@ -103,7 +103,7 @@ CMakeFiles/rk_a818_prj.dir/src/pcie/pcie_impl.c.o: \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/asm-generic/ioctl.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/ioctl-types.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/sys/ttydefaults.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/pcie/cdev_sgdma.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/pcie/dma_utils.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/pcie/pcie_impl.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/common/vivado_common.h
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/pcie/cdev_sgdma.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/pcie/dma_utils.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/pcie/pcie_impl.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/common/vivado_common.h

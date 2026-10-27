@@ -1,5 +1,5 @@
 CMakeFiles/rk_a818_prj.dir/src/fifo/stream_fifo.c.o: \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/fifo/stream_fifo.c \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/fifo/stream_fifo.c \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/stdc-predef.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/include/stdint.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/stdint.h \
@@ -139,9 +139,9 @@ CMakeFiles/rk_a818_prj.dir/src/fifo/stream_fifo.c.o: \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/types/struct_osockaddr.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/in.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/inttypes.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/fifo/stream_fifo.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/log/log.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/log/logd.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/fifo/stream_fifo.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/log/log.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/log/logd.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/sys/uio.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/uio_lim.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/uio-ext.h

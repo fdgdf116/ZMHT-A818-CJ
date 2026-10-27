@@ -1,5 +1,5 @@
 CMakeFiles/rk_a818_prj.dir/src/gpu/gpu_interface.cpp.o: \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/gpu/gpu_interface.cpp \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/gpu/gpu_interface.cpp \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/stdc-predef.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/include/stdint.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/stdint.h \
@@ -118,8 +118,8 @@ CMakeFiles/rk_a818_prj.dir/src/gpu/gpu_interface.cpp.o: \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/dlfcn.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/dlfcn.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/dl_find_object.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/gpu/gpu_interface.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/gpu/hetero_interface.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/gpu/gpu_interface.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/gpu/hetero_interface.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/include/c++/11.3.0/math.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/include/c++/11.3.0/cmath \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/include/c++/11.3.0/bits/cpp_type_traits.h \
@@ -134,7 +134,7 @@ CMakeFiles/rk_a818_prj.dir/src/gpu/gpu_interface.cpp.o: \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/mathcalls.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/mathcalls-narrow.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/iscanonical.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/common/types_def.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/common/types_def.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/ctype.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/wchar.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/types/wint_t.h \
@@ -173,12 +173,12 @@ CMakeFiles/rk_a818_prj.dir/src/gpu/gpu_interface.cpp.o: \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/netdb.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/arpa/inet.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/sys/time.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/common/ringbuffer.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/common/ringbuffer.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/include/stdbool.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/common/vivado_common.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/common/xutils.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/log/log.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/log/logd.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/common/vivado_common.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/common/xutils.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/log/log.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/log/logd.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/sys/uio.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/uio-ext.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/common/a818_error.h
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/common/a818_error.h

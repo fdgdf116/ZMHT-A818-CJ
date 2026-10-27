@@ -89,4 +89,6 @@
 #define A818_RS232_INIT                 (72)
 #define A818_RS232_THREAD               (73)
 
+#define A818_STREAM_STOP_TIMEOUT        (74)
+
 #endif

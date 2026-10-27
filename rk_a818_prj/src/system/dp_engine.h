@@ -38,6 +38,7 @@ unsigned int drm_dp_chn_image_init(unsigned int width, unsigned int height);
 int drm_dp_chn_image_destory(void);
 int drm_dp_data_init(void);
 void drm_dp_data_destory(void);
+void dp_discard_queues(void);
 void dp_chn_ringbuffer_is_empty(void);
 
 #ifdef __cplusplus

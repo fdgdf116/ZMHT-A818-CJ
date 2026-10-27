@@ -69,7 +69,11 @@ aux_source_directory(./src DIR_SRCS)
 aux_source_directory(./src/log DIR_SRCS_LOG)
 aux_source_directory(./src/mpp DIR_SRCS_MPP)
 aux_source_directory(./src/mpp/utils DIR_SRCS_MPP_UTILS)
-aux_source_directory(./src/common DIR_SRCS_COMMON)
+set(DIR_SRCS_COMMON
+	./src/common/ringbuffer.c
+	./src/common/xutils.c
+	./src/common/stream_lifecycle.c
+)
 aux_source_directory(./src/gpu DIR_SRCS_GPU)
 aux_source_directory(./src/rga DIR_SRCS_RGA)
 aux_source_directory(./src/osd DIR_SRCS_OSD)

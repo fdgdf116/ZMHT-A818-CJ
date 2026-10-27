@@ -1,5 +1,5 @@
 CMakeFiles/rk_a818_prj.dir/src/pcie/pcie_reg_rw.c.o: \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/pcie/pcie_reg_rw.c \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/pcie/pcie_reg_rw.c \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/stdc-predef.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/include/stdint.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/stdint.h \
@@ -90,7 +90,7 @@ CMakeFiles/rk_a818_prj.dir/src/pcie/pcie_reg_rw.c.o: \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/mman-map-flags-generic.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/mman-linux.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/mman-shared.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/log/log.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/log/log.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/time.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/time.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/timex.h \
@@ -104,7 +104,7 @@ CMakeFiles/rk_a818_prj.dir/src/pcie/pcie_reg_rw.c.o: \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/setjmp.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/types/struct___jmp_buf_tag.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/pthread_stack_min-dynamic.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/log/logd.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/log/logd.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/sys/ioctl.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/ioctls.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/asm/ioctls.h \
@@ -117,5 +117,5 @@ CMakeFiles/rk_a818_prj.dir/src/pcie/pcie_reg_rw.c.o: \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/sys/uio.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/uio_lim.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/uio-ext.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/pcie/pcie_impl.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/pcie/pcie_reg_rw.h
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/pcie/pcie_impl.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/pcie/pcie_reg_rw.h

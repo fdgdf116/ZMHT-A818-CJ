@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/rk_a818_prj.dir/src/common/ringbuffer.c.o"
   "CMakeFiles/rk_a818_prj.dir/src/common/ringbuffer.c.o.d"
+  "CMakeFiles/rk_a818_prj.dir/src/common/stream_lifecycle.c.o"
+  "CMakeFiles/rk_a818_prj.dir/src/common/stream_lifecycle.c.o.d"
   "CMakeFiles/rk_a818_prj.dir/src/common/xutils.c.o"
   "CMakeFiles/rk_a818_prj.dir/src/common/xutils.c.o.d"
   "CMakeFiles/rk_a818_prj.dir/src/drm_dp/drm_utils.c.o"

@@ -1,3 +1,4 @@
+#include "stream_lifecycle.h"
 #include "osd_engine.h"
 #include "log/log.h"
 #include "GUI.h"
@@ -29,6 +30,8 @@ struct osd_chn_info_t{
   unsigned char chn;
   pthread_t tid;
   pthread_t osd_tid;
+  int gui_created;
+  int osd_created;
   unsigned char osd_flag;
   unsigned char gui_flag;
   ring_buffer_t *osd_rb;
@@ -547,18 +550,13 @@ static void* gui_paint_on_canvas_thread(void* parameter)
     gui_osd_data = gs_osd_data + (chn_image->mpp_info.mpp_chn * (4096*4096*2));
     struct timespec start_tm,end_tm;
     while(1){
-      if(!gs_osd_stream->chn_info[osd_chn].gui_flag){
+      if(!__atomic_load_n(&gs_osd_stream->chn_info[osd_chn].gui_flag, __ATOMIC_ACQUIRE)){
         break;
       }
 
-      while(ringbuffer_is_empty(rb)){
-          time.tv_sec=0;
-          time.tv_usec=(1);
-          select(0,NULL,NULL,NULL,&time);
-          if(!gs_osd_stream->chn_info[osd_chn].gui_flag){
-            goto stop;
-          }
-      }
+      STREAM_WORK_GUARD(work, STREAM_WORK);
+      if (!work.active) { usleep(1000); continue; }
+      if (ringbuffer_is_empty(rb)) { usleep(1); continue; }
 
       clock_gettime(CLOCK_REALTIME, &start_tm);
 
@@ -719,18 +717,13 @@ static void* gui_stitchbase_paint_on_canvas_thread(void* parameter)
 
     while(1){
 
-      if(!gs_osd_stream->chn_info[osd_chn].gui_flag){
+      if(!__atomic_load_n(&gs_osd_stream->chn_info[osd_chn].gui_flag, __ATOMIC_ACQUIRE)){
         break;
       }
 
-      while(ringbuffer_is_empty(rb)){
-          time.tv_sec=0;
-          time.tv_usec=(1);
-          select(0,NULL,NULL,NULL,&time);
-          if(!gs_osd_stream->chn_info[osd_chn].gui_flag){
-            goto stop;
-          }
-      }
+      STREAM_WORK_GUARD(work, STREAM_WORK);
+      if (!work.active) { usleep(1000); continue; }
+      if (ringbuffer_is_empty(rb)) { usleep(1); continue; }
 
       ringbuffer_get(rb, (uint8_t *)&frame_info, sizeof(image_frame_info_t));
 
@@ -812,18 +805,13 @@ static void *gpu_osd_overlapped_thread(void* parameter)
   rb = gs_osd_stream->chn_info[osd_chn].osd_rb;
 
   while(1){
-    if(!gs_osd_stream->chn_info[osd_chn].osd_flag){
+    if(!__atomic_load_n(&gs_osd_stream->chn_info[osd_chn].osd_flag, __ATOMIC_ACQUIRE)){
       break;
     }
 
-    while(ringbuffer_is_empty(rb)){
-        time.tv_sec=0;
-        time.tv_usec=(1);
-        select(0,NULL,NULL,NULL,&time);
-        if(!gs_osd_stream->chn_info[osd_chn].osd_flag){
-          goto stop;
-        }      
-    }
+    STREAM_WORK_GUARD(work, STREAM_WORK);
+    if (!work.active) { usleep(1000); continue; }
+    if (ringbuffer_is_empty(rb)) { usleep(1); continue; }
     ringbuffer_get(rb, (uint8_t *)&frame_info, sizeof(image_frame_info_t));
  
     chn_image = data_stream->chn_image[frame_info.chn];
@@ -909,11 +897,9 @@ static void *osd_dp_send_thread(void* parameter)
 
     while(1){
 
-      while(ringbuffer_is_empty(rb)){
-          time.tv_sec=0;
-          time.tv_usec=(1);
-          select(0,NULL,NULL,NULL,&time);
-      }
+      STREAM_WORK_GUARD(work, STREAM_WORK);
+      if (!work.active) { usleep(1000); continue; }
+      if (ringbuffer_is_empty(rb)) { usleep(1); continue; }
 
       ringbuffer_get(rb, (uint8_t *)&frame_info, sizeof(image_frame_info_t));
 
@@ -1027,10 +1013,10 @@ int gui_osd_overlapped_chn_init(unsigned char chn)
   data_stream_t *data_stream = data_stream_get();
   fpga_chn_image_info_t* chn_image = data_stream->chn_image[chn];
   gs_osd_stream->chn_info[chn].chn = chn;
-  gs_osd_stream->chn_info[chn].osd_flag = 1;
+  __atomic_store_n(&gs_osd_stream->chn_info[chn].osd_flag, 1, __ATOMIC_RELEASE);
   chn_image->frame_num = 0;
 
-  gs_osd_stream->chn_info[chn].gui_flag = 1;
+  __atomic_store_n(&gs_osd_stream->chn_info[chn].gui_flag, 1, __ATOMIC_RELEASE);
 
 
   if(chn != GPU_STITCHBASE_CHN){
@@ -1047,12 +1033,14 @@ int gui_osd_overlapped_chn_init(unsigned char chn)
     }
   }
 
+  gs_osd_stream->chn_info[chn].gui_created = 1;
   /*初始化叠加线程*/
   ret = pthread_create(&gs_osd_stream->chn_info[chn].osd_tid, NULL, &gpu_osd_overlapped_thread, &gs_osd_stream->chn_info[chn].chn);
   if (ret != 0) {
       printf("[ERROR] Create gpu_osd_overlapped_thread failed %d\n",ret);
       return A818_OSD_GPU_THREAD;
   }
+  gs_osd_stream->chn_info[chn].osd_created = 1;
   SLOGI("[Debug] %s chn:%d \n", __func__, chn);
   return 0;
 }
@@ -1068,13 +1056,13 @@ int gui_osd_overlapped_chn_init(unsigned char chn)
 void gui_osd_overlapped_chn_destory(unsigned char chn)
 {
   if(gs_osd_stream->chn_info[chn].osd_flag){
-    gs_osd_stream->chn_info[chn].osd_flag = 0;
+    __atomic_store_n(&gs_osd_stream->chn_info[chn].osd_flag, 0, __ATOMIC_RELEASE);
     SLOGI("[Debug] %s chn:%d \n", __func__, chn);
     xt_nanosleep(0, 100*1000);
   }
 
   if(gs_osd_stream->chn_info[chn].gui_flag){
-    gs_osd_stream->chn_info[chn].gui_flag = 0;
+    __atomic_store_n(&gs_osd_stream->chn_info[chn].gui_flag, 0, __ATOMIC_RELEASE);
     SLOGI("[Debug] %s chn:%d \n", __func__, chn);
     xt_nanosleep(0, 100*1000);
   }
@@ -1098,6 +1086,36 @@ void osd_ringbuffer_destory(void)
     }
   }
   ringbuffer_destory(gs_osd_stream->osd_dp_rb);
+}
+
+/* Lifecycle admission is closed before this function is called. */
+int gui_osd_stop_workers(unsigned int timeout_ms)
+{
+    for (int chn = 0; chn < DATA_CHANNEL_NUM_MAX; ++chn) {
+        __atomic_store_n(&gs_osd_stream->chn_info[chn].gui_flag, 0, __ATOMIC_RELEASE);
+        __atomic_store_n(&gs_osd_stream->chn_info[chn].osd_flag, 0, __ATOMIC_RELEASE);
+    }
+    for (int chn = 0; chn < DATA_CHANNEL_NUM_MAX; ++chn) {
+        struct osd_chn_info_t *info = &gs_osd_stream->chn_info[chn];
+        if (info->gui_created) {
+            int ret = stream_join_thread(info->tid, timeout_ms);
+            if (ret) return ret;
+            info->gui_created = 0;
+        }
+        if (info->osd_created) {
+            int ret = stream_join_thread(info->osd_tid, timeout_ms);
+            if (ret) return ret;
+            info->osd_created = 0;
+        }
+    }
+    return 0;
+}
+
+void gui_osd_discard_queues(void)
+{
+    for (int chn = 0; chn < DATA_CHANNEL_NUM_MAX; ++chn)
+        ringbuffer_reset(gs_osd_stream->chn_info[chn].osd_rb);
+    ringbuffer_reset(gs_osd_stream->osd_dp_rb);
 }
 
 /*

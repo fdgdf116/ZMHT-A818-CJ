@@ -1,3 +1,4 @@
+#include "stream_lifecycle.h"
 #include <stdint.h>
 #include <sched.h>
 #include <stdio.h>
@@ -74,6 +75,18 @@ static unsigned int upgrade_state;
 
 static char * ZPK_PWD  = "/userdata/zpk/";
 static unsigned char* zpk_upgrade_state_patch = "/tmp/sd_update";
+
+/* Owned exclusively by the FIFO control thread. */
+static int stop_cleanup_complete;
+static int stop_pending_stage;
+static uint64_t stop_retry_at_ms;
+
+static uint64_t stop_clock_ms(void)
+{
+    struct timespec now;
+    clock_gettime(CLOCK_MONOTONIC, &now);
+    return (uint64_t)now.tv_sec * 1000 + now.tv_nsec / 1000000;
+}
 
 #define TYPE7_STOP_SETTLE_US (20 * 1000)
 #define TYPE7_STAGE_SETTLE_US (10 * 1000)
@@ -824,12 +837,53 @@ void clean_system_buff_cache(void)
 	返回值:
         正确返回0，失败返回其他
 */
-static void axififo_frame_request_type7(void)
+static int axififo_frame_request_type7(unsigned int timeout_ms)
 {
     fpga_chn_image_info_t* chn_image;
     data_stream_t *data_stream = data_stream_get();
     mpi_encode_info_t* mpi_encode = mpi_encode_info_get();
 
+    int ret;
+    int stage = 1;
+    if (stream_state() == STREAM_FAULT)
+        return A818_STREAM_STOP_TIMEOUT; /* reserved for unrecoverable faults */
+    if (stream_state() == STREAM_STOPPED && stop_cleanup_complete)
+        return A818_SUCCESS;
+    stream_request_stop();
+    mpp_encode_request_stop();
+
+    /* Poll on automatic retries: never spend two seconds on each control loop.
+     * No reset/free until every worker and join stage has completed. */
+    ret = stream_wait_idle(timeout_ms);
+    if (!ret) { stage = 2; ret = mpp_encode_join_stopped(timeout_ms); }
+    if (!ret) { stage = 3; ret = gui_osd_stop_workers(timeout_ms); }
+    if (!ret) { stage = 4; ret = data_stream_stop_stitchbase(timeout_ms); }
+    if (ret) {
+        if (stop_pending_stage != stage || timeout_ms) {
+            SLOGI("[INFO] stream stop pending: stage=%d ret=%d; resources retained, retry enabled\n", stage, ret);
+            pcie_log_vfifo_diagnostics("stop_pending");
+        }
+        stop_pending_stage = stage;
+        stop_retry_at_ms = stop_clock_ms() + 100;
+        return A818_STREAM_STOP_TIMEOUT;
+    }
+    stop_pending_stage = 0;
+
+    /* Consumers are parked and producers have stopped: discard stale data. */
+    GPU_Frame_st *gpu = gpu_data_stream_get();
+    for (int chn = 0; chn < DATA_CHANNEL_NUM_MAX; ++chn) {
+        ringbuffer_reset(data_stream->chn_image[chn]->chn_data_rb);
+        ringbuffer_reset(data_stream->chn_image[chn]->stitchbase_data_rb);
+    }
+    for (int chn = 0; chn < DATA_CHANNEL_NUM_MAX; ++chn) {
+        ringbuffer_reset(gpu->osd_data_rb[chn]);
+        ringbuffer_reset(gpu->mpp_data_rb[chn]);
+    }
+    for (int chn = 0; chn < MPP_ENCODE_NTHREAD_MAX; ++chn) {
+        ringbuffer_reset(mpi_encode->mpp_encode_rb[chn]);
+    }
+    gui_osd_discard_queues();
+    dp_discard_queues();
     pcie_fpga_device_stop();
     usleep(TYPE7_STOP_SETTLE_US);
     
@@ -934,6 +988,11 @@ static void axififo_frame_request_type7(void)
     memset(&data_stream->osd_info, 0x0, sizeof(data_stream->osd_info));
     data_stream->stitchbase_osd_flag = 0;
     clean_system_buff_cache();
+    if (stream_finish_stop()) return A818_STREAM_STOP_TIMEOUT;
+    stop_cleanup_complete = 1;
+    stop_retry_at_ms = 0;
+    SLOGI("[INFO] stream stop complete: STOPPED; reconfigure before TYPE5\n");
+    return A818_SUCCESS;
 }
 
 
@@ -1114,6 +1173,15 @@ static void axififo_frame_data_analyse(unsigned char* frame_buffer, unsigned int
     cmd_ok = A818_SUCCESS;
     upgrade_state = 0xf1;
 
+    /* A timed-out worker may still reference the current configuration. */
+    if ((stream_state() == STREAM_FAULT || stream_state() == STREAM_STOPPING) &&
+        frame_buffer[0] != UARTLIST_REQUEST_TYPE6 && frame_buffer[0] != UARTLIST_REQUEST_TYPE7) {
+        cmd_ok = A818_STREAM_STOP_TIMEOUT;
+        goto send_reply;
+    }
+    if (frame_buffer[0] != UARTLIST_REQUEST_TYPE6 &&
+        frame_buffer[0] != UARTLIST_REQUEST_TYPE7)
+        stop_cleanup_complete = 0;
     /*判断是那种帧类型*/
     switch(frame_buffer[0]){ 
         case UARTLIST_REQUEST_TYPE1:
@@ -1157,6 +1225,14 @@ static void axififo_frame_data_analyse(unsigned char* frame_buffer, unsigned int
 
         case UARTLIST_REQUEST_TYPE5:
             if(frame_buffer[1] == UARTLIST_FRAME_ENABLE){
+                if (stream_state() == STREAM_STOPPING || stream_state() == STREAM_FAULT) {
+                    cmd_ok = A818_STREAM_STOP_TIMEOUT;
+                    break;
+                }
+                if (!g_axififo_info->rk_enable && !g_axififo_info->pc_enable) {
+                    cmd_ok = A818_FIFO_ENABLE_ERROR;
+                    break; /* Successful stop cleared configuration: configure first. */
+                }
                 cmd_ok = A818_SUCCESS;
                 usleep(100*1000);
                 fill_no_signal_position();
@@ -1168,6 +1244,11 @@ static void axififo_frame_data_analyse(unsigned char* frame_buffer, unsigned int
 
                 if(g_axififo_info->pc_enable) {
                     pcie_set_pc_enable(1);
+                }
+                /* Open software admission only after hardware is enabled. */
+                if (stream_start()) {
+                    cmd_ok = A818_STREAM_STOP_TIMEOUT;
+                    break;
                 }
                 
             } else {
@@ -1184,7 +1265,7 @@ static void axififo_frame_data_analyse(unsigned char* frame_buffer, unsigned int
         case UARTLIST_REQUEST_TYPE7:
             if(frame_buffer[1] == UARTLIST_FRAME_ENABLE){
                 cmd_ok = A818_SUCCESS;
-                axififo_frame_request_type7();
+                cmd_ok = axififo_frame_request_type7(STREAM_STOP_TIMEOUT_MS);
                 SLOGI("[Debug]++++UARTLIST_REQUEST_TYPE7+++++\n");
             }
             break; 
@@ -1332,6 +1413,7 @@ static void axififo_frame_data_analyse(unsigned char* frame_buffer, unsigned int
             break;
     }
 
+send_reply:
     axififo_send(frame_buffer[0], cmd_ok);
     // if(frame_buffer[0] == UARTLIST_REQUEST_TYPE1){
     //     SLOGI("############# exit %d ##################\n", frame_buffer[0]);
@@ -1421,6 +1503,17 @@ static void *axififo_recv_data_pthread(void* parameter)
     unsigned char RecvBuffer[AXIFIFO_RECV_DATA_SIZE];
     struct timespec start, end;
     while(1){
+        /* Serialize fault cleanup with configuration/TYPE7 commands. */
+        if (STREAM_DMA_WATCHDOG_ENABLED &&
+            stream_check_dma_timeout(STREAM_DMA_WATCHDOG_MS)) {
+            SLOGI("[ERROR] DMA exceeded %u ms; requesting stream stop\n", STREAM_DMA_WATCHDOG_MS);
+            pcie_log_vfifo_diagnostics("dma_watchdog");
+        }
+        if (stream_state() == STREAM_STOPPING && stop_clock_ms() >= stop_retry_at_ms) {
+            int stop_ret = axififo_frame_request_type7(0);
+            if (stop_ret == A818_SUCCESS)
+                SLOGI("[INFO] automatic stream stop result: %d\n", stop_ret);
+        }
         /*读取长度，长度不为0，表示有数据*/
         recv_cnt = stream_fifo_read_data_len(&g_axififo_info->fifo_reg);
         if(recv_cnt > 0){

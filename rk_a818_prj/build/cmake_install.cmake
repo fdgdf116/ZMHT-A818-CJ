@@ -1,4 +1,4 @@
-# Install script for directory: /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj
+# Install script for directory: /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

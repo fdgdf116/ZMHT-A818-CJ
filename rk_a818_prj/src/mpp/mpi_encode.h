@@ -159,6 +159,8 @@ void mpp_encode_destory(void);
 
 void *camera_video_frame_get(void);
 unsigned int mpp_encode_chn_init(unsigned int chn, unsigned char image_chn, MpiEncAppArgs *encode_cmd);
+void mpp_encode_request_stop(void);
+int mpp_encode_join_stopped(unsigned int timeout_ms);
 void mpp_encode_chn_destory(unsigned int chn);;
 void mpp_chn_ringbuffer_is_empty(unsigned char chn);
 

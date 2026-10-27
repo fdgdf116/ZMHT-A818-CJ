@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include <string.h>
 #include <unistd.h>
 #include <time.h>
 #include <errno.h>
@@ -102,12 +103,20 @@ ssize_t write_from_buffer(int fd, uint8_t *buffer, uint64_t size, uint64_t base,
 		}
 
 		/* write data to file from memory buffer */
+        struct timespec started, finished;
+        clock_gettime(CLOCK_MONOTONIC, &started);
 		rc = write(fd, buf, bytes);
+        int saved_errno = errno;
+        clock_gettime(CLOCK_MONOTONIC, &finished);
 		if (rc < 0) {
 			fprintf(stderr, "h2c%d, write 0x%lx @ 0x%lx failed %ld.\n",
 				ch_index, bytes, offset, rc);
-			perror("write file");
-			return -EIO;
+            long long elapsed_us = (finished.tv_sec - started.tv_sec) * 1000000LL +
+                                   (finished.tv_nsec - started.tv_nsec) / 1000;
+            fprintf(stderr, "write DMA: errno=%d (%s), elapsed=%lld us\n",
+                    saved_errno, strerror(saved_errno), elapsed_us);
+            errno = saved_errno;
+            return -saved_errno;
 		}
 
 		count += rc;

@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/build"
+			"value" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -144,22 +144,6 @@
 			],
 			"type" : "INTERNAL",
 			"value" : "/usr/bin/ctest"
-		},
-		{
-			"name" : "CMAKE_CXX_COMPILER",
-			"properties" : 
-			[
-				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
-				{
-					"name" : "HELPSTRING",
-					"value" : "(This variable does not exist and should not be used)"
-				}
-			],
-			"type" : "UNINITIALIZED",
-			"value" : ""
 		},
 		{
 			"name" : "CMAKE_CXX_COMPILER_AR",
@@ -272,22 +256,6 @@
 			],
 			"type" : "STRING",
 			"value" : "-O2 -g -DNDEBUG"
-		},
-		{
-			"name" : "CMAKE_C_COMPILER",
-			"properties" : 
-			[
-				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
-				{
-					"name" : "HELPSTRING",
-					"value" : "(This variable does not exist and should not be used)"
-				}
-			],
-			"type" : "UNINITIALIZED",
-			"value" : ""
 		},
 		{
 			"name" : "CMAKE_C_COMPILER_AR",
@@ -595,7 +563,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj"
+			"value" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1131,7 +1099,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/build"
+			"value" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/build"
 		},
 		{
 			"name" : "rk_a818_prj_IS_TOP_LEVEL",
@@ -1155,7 +1123,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj"
+			"value" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj"
 		}
 	],
 	"kind" : "cache",

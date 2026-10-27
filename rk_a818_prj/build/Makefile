@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj
+CMAKE_SOURCE_DIR = /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/build
+CMAKE_BINARY_DIR = /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/build/CMakeFiles /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/build/CMakeFiles /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -152,6 +152,30 @@ src/common/ringbuffer.s: src/common/ringbuffer.c.s
 src/common/ringbuffer.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/rk_a818_prj.dir/build.make CMakeFiles/rk_a818_prj.dir/src/common/ringbuffer.c.s
 .PHONY : src/common/ringbuffer.c.s
+
+src/common/stream_lifecycle.o: src/common/stream_lifecycle.c.o
+.PHONY : src/common/stream_lifecycle.o
+
+# target to build an object file
+src/common/stream_lifecycle.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rk_a818_prj.dir/build.make CMakeFiles/rk_a818_prj.dir/src/common/stream_lifecycle.c.o
+.PHONY : src/common/stream_lifecycle.c.o
+
+src/common/stream_lifecycle.i: src/common/stream_lifecycle.c.i
+.PHONY : src/common/stream_lifecycle.i
+
+# target to preprocess a source file
+src/common/stream_lifecycle.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rk_a818_prj.dir/build.make CMakeFiles/rk_a818_prj.dir/src/common/stream_lifecycle.c.i
+.PHONY : src/common/stream_lifecycle.c.i
+
+src/common/stream_lifecycle.s: src/common/stream_lifecycle.c.s
+.PHONY : src/common/stream_lifecycle.s
+
+# target to generate assembly for a file
+src/common/stream_lifecycle.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rk_a818_prj.dir/build.make CMakeFiles/rk_a818_prj.dir/src/common/stream_lifecycle.c.s
+.PHONY : src/common/stream_lifecycle.c.s
 
 src/common/xutils.o: src/common/xutils.c.o
 .PHONY : src/common/xutils.o
@@ -741,6 +765,9 @@ help:
 	@echo "... src/common/ringbuffer.o"
 	@echo "... src/common/ringbuffer.i"
 	@echo "... src/common/ringbuffer.s"
+	@echo "... src/common/stream_lifecycle.o"
+	@echo "... src/common/stream_lifecycle.i"
+	@echo "... src/common/stream_lifecycle.s"
 	@echo "... src/common/xutils.o"
 	@echo "... src/common/xutils.i"
 	@echo "... src/common/xutils.s"

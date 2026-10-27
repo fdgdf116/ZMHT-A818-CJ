@@ -1,3 +1,4 @@
+#include "stream_lifecycle.h"
 #include <string.h>
 
 #include "mpi_encode.h"
@@ -11,6 +12,7 @@
 #include "a818_error.h"
 
 static mpi_encode_info_t *gs_mpi_encode;
+static int encode_thread_created[MPP_ENCODE_NTHREAD_MAX];
 
 const char *encode_name[MPP_ENCODE_NTHREAD_MAX] = {"yuv_encode0","yuv_encode1","yuv_encode2","yuv_encode3","yuv_encode4", "yuv_encode5", "yuv_encode6","yuv_encode7","yuv_encode8"};
 
@@ -40,11 +42,13 @@ int  video_data_wait_and_get(uint8_t chn, uint8_t *buf, uint32_t width, uint32_t
         time.tv_sec=0;
         time.tv_usec=(10);
         select(0,NULL,NULL,NULL,&time); 
-        if(mpi_encode->image_encode[chn].encode_flag){
+        if(__atomic_load_n(&mpi_encode->image_encode[chn].encode_flag, __ATOMIC_ACQUIRE)){
             return 1;
         }       
     }
 
+    STREAM_WORK_GUARD(work, STREAM_WORK);
+    if (!work.active) return 1;
     ringbuffer_get(rb, (uint8_t *)&frame_info, sizeof(image_frame_info_t));
     gpu_image = &gpu_frame_stream->gpu_image[frame_info.chn];
     if(!gpu_image){
@@ -100,6 +104,7 @@ static void mpp_encode_output(unsigned char chn,unsigned char* pkt_data,int pkt_
     mpi_encode_info_t* mpi_encode = mpi_encode_info_get();
     mpi_image_encode_info_t *image_encode = &mpi_encode->image_encode[chn];
 
+    if (stream_state() != STREAM_RUNNING) return;
     byte_count = MPP_OUTPUT_FRAME_SIZE; /*发送给上位机的一帧数据的最大数据量*/
     memcpy_len = 0;
     while(1){
@@ -596,14 +601,14 @@ static MPP_RET app_mpp_run(MpiEncMultiCtxInfo *info)
 #endif  
             //cam_buf = camera_video_frame_get();
 
-            if(mpi_encode->image_encode[chn].encode_flag){
+            if(__atomic_load_n(&mpi_encode->image_encode[chn].encode_flag, __ATOMIC_ACQUIRE)){
                 SLOGI("[Debug] video_data_wait_and_get stop -1- \n");
                 ret = MPP_OK;
                 goto RET;
             }
 
             ret = video_data_wait_and_get(chn, buf,p->width, p->height, p->hor_stride,p->ver_stride);
-            if((ret) || (mpi_encode->image_encode[chn].encode_flag)){
+            if((ret) || (__atomic_load_n(&mpi_encode->image_encode[chn].encode_flag, __ATOMIC_ACQUIRE))){
                 SLOGI("[Debug] video_data_wait_and_get stop -2- \n");
                 ret = MPP_OK;
                 goto RET;
@@ -934,6 +939,12 @@ static void *mpp_frame_encode_thread(void *arg)
         goto FAILED_OUT;
     }
 
+    /* Configuration precedes TYPE5; keep workers parked until stream start. */
+    while (stream_state() != STREAM_RUNNING) {
+        if (__atomic_load_n(&gs_mpi_encode->image_encode[info->chn].encode_flag, __ATOMIC_ACQUIRE))
+            goto FAILED_OUT;
+        usleep(1000);
+    }
     ret = app_mpp_run(info);    
     if (ret) {
         SLOGI("Error:test mpp run failed ret %d\n", ret);
@@ -1065,6 +1076,7 @@ unsigned int mpp_encode_chn_init(unsigned int chn, unsigned char image_chn, MpiE
         printf("failed to create mpp encode thread %d\n", 0);
         return A818_MPI_INIT_ENCODE_THREAD;
     }
+    encode_thread_created[chn] = 1;
     usleep(200*1000);
     
     return A818_SUCCESS;
@@ -1080,11 +1092,33 @@ void mpp_chn_ringbuffer_is_empty(unsigned char chn)
     }
 }
 
+/* Called only by the serialized control thread before queue/resource cleanup. */
+void mpp_encode_request_stop(void)
+{
+    for (int chn = 0; chn < MPP_ENCODE_NTHREAD_MAX; ++chn)
+        if (encode_thread_created[chn])
+            __atomic_store_n(&gs_mpi_encode->image_encode[chn].encode_flag, 1, __ATOMIC_RELEASE);
+}
+
+int mpp_encode_join_stopped(unsigned int timeout_ms)
+{
+    for (int chn = 0; chn < MPP_ENCODE_NTHREAD_MAX; ++chn) {
+        if (!encode_thread_created[chn]) continue;
+        int ret = stream_join_thread(gs_mpi_encode->encode_ctxs[chn].thd, timeout_ms);
+        if (ret) {
+            if (timeout_ms) SLOGI("[ERROR] encoder %d stop failed: %d; retaining resources\n", chn, ret);
+            return ret;
+        }
+        encode_thread_created[chn] = 0;
+    }
+    return 0;
+}
+
 void mpp_encode_chn_destory(unsigned int chn)
 {
     mpi_encode_info_t* mpi_encode = mpi_encode_info_get();
     usleep(100*1000);
-    mpi_encode->image_encode[chn].encode_flag = 1;
+    __atomic_store_n(&mpi_encode->image_encode[chn].encode_flag, 1, __ATOMIC_RELEASE);
     SLOGI("[DEBUG] %s chn:%d end \n", __func__, chn);
     return ;
 }

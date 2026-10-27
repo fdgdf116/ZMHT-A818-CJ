@@ -1,5 +1,5 @@
 The target system is: Linux -  - arm
-The host system is: Linux - 6.8.0-124-generic - x86_64
+The host system is: Linux - 6.8.0-134-generic - x86_64
 Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
 Compiler: /home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-gcc 
 Build flags: 
@@ -11,7 +11,7 @@ The output was:
 
 Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
 
-The C compiler identification is GNU, found in "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/build/CMakeFiles/3.22.1/CompilerIdC/a.out"
+The C compiler identification is GNU, found in "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/build/CMakeFiles/3.22.1/CompilerIdC/a.out"
 
 Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
 Compiler: /home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-g++ 
@@ -24,15 +24,15 @@ The output was:
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
 
-The CXX compiler identification is GNU, found in "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/build/CMakeFiles/3.22.1/CompilerIdCXX/a.out"
+The CXX compiler identification is GNU, found in "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/build/CMakeFiles/3.22.1/CompilerIdCXX/a.out"
 
 Detecting C compiler ABI info compiled with the following output:
-Change Dir: /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/build/CMakeFiles/CMakeTmp
+Change Dir: /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_0f48e/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_0f48e.dir/build.make CMakeFiles/cmTC_0f48e.dir/build
-gmake[1]: Entering directory '/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_0f48e.dir/CMakeCCompilerABI.c.o
-/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-gcc   -v -o CMakeFiles/cmTC_0f48e.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.22/Modules/CMakeCCompilerABI.c
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_1af0b/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_1af0b.dir/build.make CMakeFiles/cmTC_1af0b.dir/build
+gmake[1]: Entering directory '/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_1af0b.dir/CMakeCCompilerABI.c.o
+/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-gcc   -v -o CMakeFiles/cmTC_1af0b.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.22/Modules/CMakeCCompilerABI.c
 Using built-in specs.
 COLLECT_GCC=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-gcc.br_real
 Target: aarch64-buildroot-linux-gnu
@@ -40,8 +40,8 @@ Configured with: ./configure --prefix=/media/sailing/work/uav/RK3588/zm_rk3588/r
 Thread model: posix
 Supported LTO compression algorithms: zlib
 gcc version 11.3.0 (Buildroot -g707f65bed4-dirty) 
-COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_0f48e.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_0f48e.dir/'
- /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/cc1 -quiet -v -iprefix /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/ -isysroot /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot /usr/share/cmake-3.22/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_0f48e.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mcpu=cortex-a76.cortex-a55 -mlittle-endian -mabi=lp64 -version -fstack-protector-strong -fPIE -o /tmp/cco89yXc.s
+COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_1af0b.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_1af0b.dir/'
+ /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/cc1 -quiet -v -iprefix /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/ -isysroot /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot /usr/share/cmake-3.22/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_1af0b.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mcpu=cortex-a76.cortex-a55 -mlittle-endian -mabi=lp64 -version -fstack-protector-strong -fPIE -o /tmp/ccfangdi.s
 GNU C17 (Buildroot -g707f65bed4-dirty) version 11.3.0 (aarch64-buildroot-linux-gnu)
 	compiled by GNU C version 10.3.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version none
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
@@ -60,15 +60,15 @@ GNU C17 (Buildroot -g707f65bed4-dirty) version 11.3.0 (aarch64-buildroot-linux-g
 	compiled by GNU C version 10.3.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version none
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
 Compiler executable checksum: c29b76c3c4fc003f031a5baef9c0190b
-COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_0f48e.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_0f48e.dir/'
- /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/bin/as -v -EL -march=armv8.2-a+fp16+rcpc+dotprod -mabi=lp64 -o CMakeFiles/cmTC_0f48e.dir/CMakeCCompilerABI.c.o /tmp/cco89yXc.s
+COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_1af0b.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_1af0b.dir/'
+ /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/bin/as -v -EL -march=armv8.2-a+fp16+rcpc+dotprod -mabi=lp64 -o CMakeFiles/cmTC_1af0b.dir/CMakeCCompilerABI.c.o /tmp/ccfangdi.s
 GNU assembler version 2.37 (aarch64-buildroot-linux-gnu) using BFD version (GNU Binutils) 2.37
 COMPILER_PATH=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/bin/
 LIBRARY_PATH=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/
-COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_0f48e.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_0f48e.dir/CMakeCCompilerABI.c.'
-Linking C executable cmTC_0f48e
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0f48e.dir/link.txt --verbose=1
-/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-gcc  -v CMakeFiles/cmTC_0f48e.dir/CMakeCCompilerABI.c.o -o cmTC_0f48e 
+COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_1af0b.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_1af0b.dir/CMakeCCompilerABI.c.'
+Linking C executable cmTC_1af0b
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1af0b.dir/link.txt --verbose=1
+/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-gcc  -v CMakeFiles/cmTC_1af0b.dir/CMakeCCompilerABI.c.o -o cmTC_1af0b 
 Using built-in specs.
 COLLECT_GCC=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-gcc.br_real
 COLLECT_LTO_WRAPPER=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/lto-wrapper
@@ -79,10 +79,10 @@ Supported LTO compression algorithms: zlib
 gcc version 11.3.0 (Buildroot -g707f65bed4-dirty) 
 COMPILER_PATH=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/bin/
 LIBRARY_PATH=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/
-COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'cmTC_0f48e' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'cmTC_0f48e.'
- /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/collect2 -plugin /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/liblto_plugin.so -plugin-opt=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/cckEjnfb.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot --eh-frame-hdr -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux -pie -o cmTC_0f48e /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/Scrt1.o /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/crti.o /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/crtbeginS.o -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0 -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib -z now -z relro CMakeFiles/cmTC_0f48e.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/crtendS.o /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/crtn.o
-COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'cmTC_0f48e' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'cmTC_0f48e.'
-gmake[1]: Leaving directory '/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/build/CMakeFiles/CMakeTmp'
+COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'cmTC_1af0b' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'cmTC_1af0b.'
+ /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/collect2 -plugin /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/liblto_plugin.so -plugin-opt=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccXxBimz.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot --eh-frame-hdr -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux -pie -o cmTC_1af0b /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/Scrt1.o /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/crti.o /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/crtbeginS.o -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0 -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib -z now -z relro CMakeFiles/cmTC_1af0b.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/crtendS.o /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/crtn.o
+COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'cmTC_1af0b' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'cmTC_1af0b.'
+gmake[1]: Leaving directory '/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/build/CMakeFiles/CMakeTmp'
 
 
 
@@ -103,12 +103,12 @@ Parsed C implicit include dir info from above output: rv=done
 
 Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(aarch64-linux-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/build/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_0f48e/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_0f48e.dir/build.make CMakeFiles/cmTC_0f48e.dir/build]
-  ignore line: [gmake[1]: Entering directory '/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/build/CMakeFiles/CMakeTmp']
-  ignore line: [Building C object CMakeFiles/cmTC_0f48e.dir/CMakeCCompilerABI.c.o]
-  ignore line: [/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-gcc   -v -o CMakeFiles/cmTC_0f48e.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.22/Modules/CMakeCCompilerABI.c]
+  ignore line: [Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_1af0b/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_1af0b.dir/build.make CMakeFiles/cmTC_1af0b.dir/build]
+  ignore line: [gmake[1]: Entering directory '/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/build/CMakeFiles/CMakeTmp']
+  ignore line: [Building C object CMakeFiles/cmTC_1af0b.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-gcc   -v -o CMakeFiles/cmTC_1af0b.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.22/Modules/CMakeCCompilerABI.c]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-gcc.br_real]
   ignore line: [Target: aarch64-buildroot-linux-gnu]
@@ -116,8 +116,8 @@ Parsed C implicit link information from above output:
   ignore line: [Thread model: posix]
   ignore line: [Supported LTO compression algorithms: zlib]
   ignore line: [gcc version 11.3.0 (Buildroot -g707f65bed4-dirty) ]
-  ignore line: [COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_0f48e.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_0f48e.dir/']
-  ignore line: [ /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/cc1 -quiet -v -iprefix /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/ -isysroot /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot /usr/share/cmake-3.22/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_0f48e.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mcpu=cortex-a76.cortex-a55 -mlittle-endian -mabi=lp64 -version -fstack-protector-strong -fPIE -o /tmp/cco89yXc.s]
+  ignore line: [COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_1af0b.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_1af0b.dir/']
+  ignore line: [ /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/cc1 -quiet -v -iprefix /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/ -isysroot /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot /usr/share/cmake-3.22/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_1af0b.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mcpu=cortex-a76.cortex-a55 -mlittle-endian -mabi=lp64 -version -fstack-protector-strong -fPIE -o /tmp/ccfangdi.s]
   ignore line: [GNU C17 (Buildroot -g707f65bed4-dirty) version 11.3.0 (aarch64-buildroot-linux-gnu)]
   ignore line: [	compiled by GNU C version 10.3.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version none]
   ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
@@ -136,15 +136,15 @@ Parsed C implicit link information from above output:
   ignore line: [	compiled by GNU C version 10.3.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version none]
   ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
   ignore line: [Compiler executable checksum: c29b76c3c4fc003f031a5baef9c0190b]
-  ignore line: [COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_0f48e.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_0f48e.dir/']
-  ignore line: [ /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/bin/as -v -EL -march=armv8.2-a+fp16+rcpc+dotprod -mabi=lp64 -o CMakeFiles/cmTC_0f48e.dir/CMakeCCompilerABI.c.o /tmp/cco89yXc.s]
+  ignore line: [COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_1af0b.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_1af0b.dir/']
+  ignore line: [ /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/bin/as -v -EL -march=armv8.2-a+fp16+rcpc+dotprod -mabi=lp64 -o CMakeFiles/cmTC_1af0b.dir/CMakeCCompilerABI.c.o /tmp/ccfangdi.s]
   ignore line: [GNU assembler version 2.37 (aarch64-buildroot-linux-gnu) using BFD version (GNU Binutils) 2.37]
   ignore line: [COMPILER_PATH=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/bin/]
   ignore line: [LIBRARY_PATH=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_0f48e.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_0f48e.dir/CMakeCCompilerABI.c.']
-  ignore line: [Linking C executable cmTC_0f48e]
-  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0f48e.dir/link.txt --verbose=1]
-  ignore line: [/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-gcc  -v CMakeFiles/cmTC_0f48e.dir/CMakeCCompilerABI.c.o -o cmTC_0f48e ]
+  ignore line: [COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_1af0b.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_1af0b.dir/CMakeCCompilerABI.c.']
+  ignore line: [Linking C executable cmTC_1af0b]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1af0b.dir/link.txt --verbose=1]
+  ignore line: [/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-gcc  -v CMakeFiles/cmTC_1af0b.dir/CMakeCCompilerABI.c.o -o cmTC_1af0b ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-gcc.br_real]
   ignore line: [COLLECT_LTO_WRAPPER=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/lto-wrapper]
@@ -155,13 +155,13 @@ Parsed C implicit link information from above output:
   ignore line: [gcc version 11.3.0 (Buildroot -g707f65bed4-dirty) ]
   ignore line: [COMPILER_PATH=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/bin/]
   ignore line: [LIBRARY_PATH=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'cmTC_0f48e' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'cmTC_0f48e.']
-  link line: [ /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/collect2 -plugin /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/liblto_plugin.so -plugin-opt=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/cckEjnfb.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot --eh-frame-hdr -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux -pie -o cmTC_0f48e /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/Scrt1.o /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/crti.o /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/crtbeginS.o -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0 -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib -z now -z relro CMakeFiles/cmTC_0f48e.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/crtendS.o /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'cmTC_1af0b' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'cmTC_1af0b.']
+  link line: [ /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/collect2 -plugin /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/liblto_plugin.so -plugin-opt=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccXxBimz.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot --eh-frame-hdr -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux -pie -o cmTC_1af0b /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/Scrt1.o /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/crti.o /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/crtbeginS.o -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0 -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib -z now -z relro CMakeFiles/cmTC_1af0b.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/crtendS.o /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/crtn.o]
     arg [/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/cckEjnfb.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccXxBimz.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -176,7 +176,7 @@ Parsed C implicit link information from above output:
     arg [-maarch64linux] ==> ignore
     arg [-pie] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_0f48e] ==> ignore
+    arg [cmTC_1af0b] ==> ignore
     arg [/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/Scrt1.o] ==> obj [/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/Scrt1.o]
     arg [/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/crti.o] ==> obj [/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/crti.o]
     arg [/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/crtbeginS.o] ==> obj [/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/crtbeginS.o]
@@ -190,7 +190,7 @@ Parsed C implicit link information from above output:
     arg [-L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib] ==> dir [/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib]
     arg [-znow] ==> ignore
     arg [-zrelro] ==> ignore
-    arg [CMakeFiles/cmTC_0f48e.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [CMakeFiles/cmTC_1af0b.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [--push-state] ==> ignore
     arg [--as-needed] ==> ignore
@@ -224,12 +224,12 @@ Parsed C implicit link information from above output:
 
 
 Detecting CXX compiler ABI info compiled with the following output:
-Change Dir: /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/build/CMakeFiles/CMakeTmp
+Change Dir: /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_cd62c/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_cd62c.dir/build.make CMakeFiles/cmTC_cd62c.dir/build
-gmake[1]: Entering directory '/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_cd62c.dir/CMakeCXXCompilerABI.cpp.o
-/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-g++   -v -o CMakeFiles/cmTC_cd62c.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.22/Modules/CMakeCXXCompilerABI.cpp
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_7b74b/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_7b74b.dir/build.make CMakeFiles/cmTC_7b74b.dir/build
+gmake[1]: Entering directory '/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_7b74b.dir/CMakeCXXCompilerABI.cpp.o
+/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-g++   -v -o CMakeFiles/cmTC_7b74b.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.22/Modules/CMakeCXXCompilerABI.cpp
 Using built-in specs.
 COLLECT_GCC=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-g++.br_real
 Target: aarch64-buildroot-linux-gnu
@@ -237,8 +237,8 @@ Configured with: ./configure --prefix=/media/sailing/work/uav/RK3588/zm_rk3588/r
 Thread model: posix
 Supported LTO compression algorithms: zlib
 gcc version 11.3.0 (Buildroot -g707f65bed4-dirty) 
-COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_cd62c.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_cd62c.dir/'
- /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/cc1plus -quiet -v -iprefix /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/ -isysroot /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot -D_GNU_SOURCE /usr/share/cmake-3.22/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_cd62c.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mcpu=cortex-a76.cortex-a55 -mlittle-endian -mabi=lp64 -version -fstack-protector-strong -fPIE -o /tmp/ccfAs18N.s
+COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_7b74b.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_7b74b.dir/'
+ /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/cc1plus -quiet -v -iprefix /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/ -isysroot /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot -D_GNU_SOURCE /usr/share/cmake-3.22/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_7b74b.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mcpu=cortex-a76.cortex-a55 -mlittle-endian -mabi=lp64 -version -fstack-protector-strong -fPIE -o /tmp/cc2XJfHh.s
 GNU C++17 (Buildroot -g707f65bed4-dirty) version 11.3.0 (aarch64-buildroot-linux-gnu)
 	compiled by GNU C version 10.3.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version none
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
@@ -263,15 +263,15 @@ GNU C++17 (Buildroot -g707f65bed4-dirty) version 11.3.0 (aarch64-buildroot-linux
 	compiled by GNU C version 10.3.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version none
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
 Compiler executable checksum: b1a6046cafd45c28e9c9fe38ef05cb22
-COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_cd62c.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_cd62c.dir/'
- /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/bin/as -v -EL -march=armv8.2-a+fp16+rcpc+dotprod -mabi=lp64 -o CMakeFiles/cmTC_cd62c.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccfAs18N.s
+COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_7b74b.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_7b74b.dir/'
+ /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/bin/as -v -EL -march=armv8.2-a+fp16+rcpc+dotprod -mabi=lp64 -o CMakeFiles/cmTC_7b74b.dir/CMakeCXXCompilerABI.cpp.o /tmp/cc2XJfHh.s
 GNU assembler version 2.37 (aarch64-buildroot-linux-gnu) using BFD version (GNU Binutils) 2.37
 COMPILER_PATH=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/bin/
 LIBRARY_PATH=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/
-COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_cd62c.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_cd62c.dir/CMakeCXXCompilerABI.cpp.'
-Linking CXX executable cmTC_cd62c
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cd62c.dir/link.txt --verbose=1
-/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-g++  -v CMakeFiles/cmTC_cd62c.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_cd62c 
+COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_7b74b.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_7b74b.dir/CMakeCXXCompilerABI.cpp.'
+Linking CXX executable cmTC_7b74b
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7b74b.dir/link.txt --verbose=1
+/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-g++  -v CMakeFiles/cmTC_7b74b.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_7b74b 
 Using built-in specs.
 COLLECT_GCC=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-g++.br_real
 COLLECT_LTO_WRAPPER=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/lto-wrapper
@@ -282,10 +282,10 @@ Supported LTO compression algorithms: zlib
 gcc version 11.3.0 (Buildroot -g707f65bed4-dirty) 
 COMPILER_PATH=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/bin/
 LIBRARY_PATH=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/
-COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'cmTC_cd62c' '-shared-libgcc' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'cmTC_cd62c.'
- /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/collect2 -plugin /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/liblto_plugin.so -plugin-opt=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccHNeq4r.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot --eh-frame-hdr -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux -pie -o cmTC_cd62c /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/Scrt1.o /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/crti.o /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/crtbeginS.o -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0 -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib -z now -z relro CMakeFiles/cmTC_cd62c.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/crtendS.o /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/crtn.o
-COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'cmTC_cd62c' '-shared-libgcc' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'cmTC_cd62c.'
-gmake[1]: Leaving directory '/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/build/CMakeFiles/CMakeTmp'
+COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'cmTC_7b74b' '-shared-libgcc' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'cmTC_7b74b.'
+ /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/collect2 -plugin /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/liblto_plugin.so -plugin-opt=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccRYRPRS.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot --eh-frame-hdr -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux -pie -o cmTC_7b74b /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/Scrt1.o /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/crti.o /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/crtbeginS.o -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0 -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib -z now -z relro CMakeFiles/cmTC_7b74b.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/crtendS.o /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/crtn.o
+COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'cmTC_7b74b' '-shared-libgcc' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'cmTC_7b74b.'
+gmake[1]: Leaving directory '/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/build/CMakeFiles/CMakeTmp'
 
 
 
@@ -312,12 +312,12 @@ Parsed CXX implicit include dir info from above output: rv=done
 
 Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(aarch64-linux-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/build/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_cd62c/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_cd62c.dir/build.make CMakeFiles/cmTC_cd62c.dir/build]
-  ignore line: [gmake[1]: Entering directory '/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/build/CMakeFiles/CMakeTmp']
-  ignore line: [Building CXX object CMakeFiles/cmTC_cd62c.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-g++   -v -o CMakeFiles/cmTC_cd62c.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.22/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_7b74b/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_7b74b.dir/build.make CMakeFiles/cmTC_7b74b.dir/build]
+  ignore line: [gmake[1]: Entering directory '/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/build/CMakeFiles/CMakeTmp']
+  ignore line: [Building CXX object CMakeFiles/cmTC_7b74b.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-g++   -v -o CMakeFiles/cmTC_7b74b.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.22/Modules/CMakeCXXCompilerABI.cpp]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-g++.br_real]
   ignore line: [Target: aarch64-buildroot-linux-gnu]
@@ -325,8 +325,8 @@ Parsed CXX implicit link information from above output:
   ignore line: [Thread model: posix]
   ignore line: [Supported LTO compression algorithms: zlib]
   ignore line: [gcc version 11.3.0 (Buildroot -g707f65bed4-dirty) ]
-  ignore line: [COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_cd62c.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_cd62c.dir/']
-  ignore line: [ /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/cc1plus -quiet -v -iprefix /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/ -isysroot /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot -D_GNU_SOURCE /usr/share/cmake-3.22/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_cd62c.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mcpu=cortex-a76.cortex-a55 -mlittle-endian -mabi=lp64 -version -fstack-protector-strong -fPIE -o /tmp/ccfAs18N.s]
+  ignore line: [COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_7b74b.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_7b74b.dir/']
+  ignore line: [ /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/cc1plus -quiet -v -iprefix /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/ -isysroot /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot -D_GNU_SOURCE /usr/share/cmake-3.22/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_7b74b.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mcpu=cortex-a76.cortex-a55 -mlittle-endian -mabi=lp64 -version -fstack-protector-strong -fPIE -o /tmp/cc2XJfHh.s]
   ignore line: [GNU C++17 (Buildroot -g707f65bed4-dirty) version 11.3.0 (aarch64-buildroot-linux-gnu)]
   ignore line: [	compiled by GNU C version 10.3.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version none]
   ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
@@ -351,15 +351,15 @@ Parsed CXX implicit link information from above output:
   ignore line: [	compiled by GNU C version 10.3.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version none]
   ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
   ignore line: [Compiler executable checksum: b1a6046cafd45c28e9c9fe38ef05cb22]
-  ignore line: [COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_cd62c.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_cd62c.dir/']
-  ignore line: [ /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/bin/as -v -EL -march=armv8.2-a+fp16+rcpc+dotprod -mabi=lp64 -o CMakeFiles/cmTC_cd62c.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccfAs18N.s]
+  ignore line: [COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_7b74b.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_7b74b.dir/']
+  ignore line: [ /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/bin/as -v -EL -march=armv8.2-a+fp16+rcpc+dotprod -mabi=lp64 -o CMakeFiles/cmTC_7b74b.dir/CMakeCXXCompilerABI.cpp.o /tmp/cc2XJfHh.s]
   ignore line: [GNU assembler version 2.37 (aarch64-buildroot-linux-gnu) using BFD version (GNU Binutils) 2.37]
   ignore line: [COMPILER_PATH=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/bin/]
   ignore line: [LIBRARY_PATH=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_cd62c.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_cd62c.dir/CMakeCXXCompilerABI.cpp.']
-  ignore line: [Linking CXX executable cmTC_cd62c]
-  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cd62c.dir/link.txt --verbose=1]
-  ignore line: [/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-g++  -v CMakeFiles/cmTC_cd62c.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_cd62c ]
+  ignore line: [COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'CMakeFiles/cmTC_7b74b.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'CMakeFiles/cmTC_7b74b.dir/CMakeCXXCompilerABI.cpp.']
+  ignore line: [Linking CXX executable cmTC_7b74b]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7b74b.dir/link.txt --verbose=1]
+  ignore line: [/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-g++  -v CMakeFiles/cmTC_7b74b.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_7b74b ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/aarch64-linux-g++.br_real]
   ignore line: [COLLECT_LTO_WRAPPER=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/lto-wrapper]
@@ -370,13 +370,13 @@ Parsed CXX implicit link information from above output:
   ignore line: [gcc version 11.3.0 (Buildroot -g707f65bed4-dirty) ]
   ignore line: [COMPILER_PATH=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/bin/]
   ignore line: [LIBRARY_PATH=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/:/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/:/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'cmTC_cd62c' '-shared-libgcc' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'cmTC_cd62c.']
-  link line: [ /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/collect2 -plugin /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/liblto_plugin.so -plugin-opt=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccHNeq4r.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot --eh-frame-hdr -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux -pie -o cmTC_cd62c /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/Scrt1.o /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/crti.o /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/crtbeginS.o -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0 -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib -z now -z relro CMakeFiles/cmTC_cd62c.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/crtendS.o /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-fstack-protector-strong' '-fPIE' '-pie' '-v' '-o' 'cmTC_7b74b' '-shared-libgcc' '-mcpu=cortex-a76.cortex-a55' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'cmTC_7b74b.']
+  link line: [ /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/collect2 -plugin /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/liblto_plugin.so -plugin-opt=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccRYRPRS.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot --eh-frame-hdr -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux -pie -o cmTC_7b74b /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/Scrt1.o /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/crti.o /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/crtbeginS.o -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0 -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64 -L/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/../../../../aarch64-buildroot-linux-gnu/lib -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/lib -L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib -z now -z relro CMakeFiles/cmTC_7b74b.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/crtendS.o /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/crtn.o]
     arg [/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../libexec/gcc/aarch64-buildroot-linux-gnu/11.3.0/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/ccHNeq4r.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccRYRPRS.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -391,7 +391,7 @@ Parsed CXX implicit link information from above output:
     arg [-maarch64linux] ==> ignore
     arg [-pie] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_cd62c] ==> ignore
+    arg [cmTC_7b74b] ==> ignore
     arg [/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/Scrt1.o] ==> obj [/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/Scrt1.o]
     arg [/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/crti.o] ==> obj [/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib/../lib64/crti.o]
     arg [/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/crtbeginS.o] ==> obj [/home/wang/ZMHT-Tool/rk3588_toolchain/bin/../lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/crtbeginS.o]
@@ -405,7 +405,7 @@ Parsed CXX implicit link information from above output:
     arg [-L/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib] ==> dir [/home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/lib]
     arg [-znow] ==> ignore
     arg [-zrelro] ==> ignore
-    arg [CMakeFiles/cmTC_cd62c.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [CMakeFiles/cmTC_7b74b.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgcc_s] ==> lib [gcc_s]

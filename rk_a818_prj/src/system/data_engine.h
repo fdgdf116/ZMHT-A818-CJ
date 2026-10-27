@@ -110,6 +110,7 @@ void rgb888_output_image_init(unsigned int rgb);
 void data_stream_chn_ringbuffer_is_empty(unsigned char chn);
 
 unsigned int data_stream_stitchbase_thread_init(void);
+int data_stream_stop_stitchbase(unsigned int timeout_ms);
 void data_stream_stitchbase_thread_destory(void);
 
 unsigned int data_stream_low_chn_thread_init(unsigned char chn);

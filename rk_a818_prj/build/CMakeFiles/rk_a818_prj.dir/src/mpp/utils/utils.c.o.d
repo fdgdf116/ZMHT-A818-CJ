@@ -1,5 +1,5 @@
 CMakeFiles/rk_a818_prj.dir/src/mpp/utils/utils.c.o: \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/utils/utils.c \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/mpp/utils/utils.c \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/stdc-predef.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/ctype.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/features.h \
@@ -31,7 +31,7 @@ CMakeFiles/rk_a818_prj.dir/src/mpp/utils/utils.c.o: \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/string.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/include/stddef.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/strings.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/osal/inc/mpp_mem.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/mpp/osal/inc/mpp_mem.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/stdlib.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/waitflags.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/waitstatus.h \
@@ -60,15 +60,15 @@ CMakeFiles/rk_a818_prj.dir/src/mpp/utils/utils.c.o: \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/struct_rwlock.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/alloca.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/stdlib-float.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/mpp/rk_type.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/mpp/mpp_err.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/mpp/mpp_log.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/mpp/rk_type.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/mpp/mpp_log_def.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/osal/inc/mpp_lock.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/mpp/rk_type.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/mpp/mpp_err.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/mpp/mpp_log.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/mpp/rk_type.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/mpp/mpp_log_def.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/mpp/osal/inc/mpp_lock.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/include/stdbool.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/osal/inc/mpp_time.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/osal/inc/mpp_thread.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/mpp/osal/inc/mpp_time.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/mpp/osal/inc/mpp_thread.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/unistd.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/posix_opt.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/environments.h \
@@ -91,7 +91,7 @@ CMakeFiles/rk_a818_prj.dir/src/mpp/utils/utils.c.o: \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/setjmp.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/types/struct___jmp_buf_tag.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/sys/time.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/osal/inc/mpp_common.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/mpp/osal/inc/mpp_common.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/stdio.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/include/stdarg.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/types/__fpos_t.h \
@@ -109,15 +109,15 @@ CMakeFiles/rk_a818_prj.dir/src/mpp/utils/utils.c.o: \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/statx-generic.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/types/struct_statx_timestamp.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/types/struct_statx.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/utils/utils.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/osal/inc/mpp_debug.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/mpp/mpp_frame.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/mpp/mpp_buffer.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/mpp/mpp_err.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/mpp/mpp_meta.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/mpp/utils/utils.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/mpp/osal/inc/mpp_debug.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/mpp/mpp_frame.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/mpp/mpp_buffer.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/mpp/mpp_err.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/mpp/mpp_meta.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/lib/gcc/aarch64-buildroot-linux-gnu/11.3.0/include/stdint.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/stdint.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/wchar.h \
  /home/wang/ZMHT-Tool/rk3588_toolchain/aarch64-buildroot-linux-gnu/sysroot/usr/include/bits/stdint-uintn.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/mpp/mpp_frame.h \
- /home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/mpp/mpp_packet.h
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/mpp/mpp_frame.h \
+ /home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/mpp/mpp_packet.h

@@ -14,6 +14,8 @@ extern "C" {
 
 int gui_osd_init(void);
 void gui_osd_destory(void);
+int gui_osd_stop_workers(unsigned int timeout_ms);
+void gui_osd_discard_queues(void);
 void gui_osd_ringbuffer_is_empty(void);
 int gui_osd_overlapped_chn_init(unsigned char chn);
 void gui_osd_overlapped_chn_destory(unsigned char chn);

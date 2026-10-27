@@ -6,7 +6,7 @@
 extern "C" {
 #endif
 
-#define A818_RK3588_VERSION "0x20260622"
+#define A818_RK3588_VERSION "0x20261027"
 
 enum video_ratio_e {
     VIDEO_RATIO_1 = 1,

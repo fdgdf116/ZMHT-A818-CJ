@@ -1,3 +1,4 @@
+#include "stream_lifecycle.h"
 #include <errno.h>
 #include <fcntl.h>
 #include <stdbool.h>
@@ -477,7 +478,7 @@ static void *modeset_draw_thread(void* parameter)
 		v.tv_sec = 0;
 		v.tv_usec = (100);
 
-		if(draw_flag){
+		if(__atomic_load_n(&draw_flag, __ATOMIC_ACQUIRE)){
 			break;
 		}
 
@@ -486,18 +487,18 @@ static void *modeset_draw_thread(void* parameter)
 			drmHandleEvent(drm_fd, &ev);
 		} else if(ret == 0){
 			//SLOGI("exit due to user-input\n");
-			if(draw_flag){
+			if(__atomic_load_n(&draw_flag, __ATOMIC_ACQUIRE)){
 				break;
 			}
 		} else if(ret < 0){
 			//SLOGI("select() failed with %d: %m\n", errno);
-			if(draw_flag){
+			if(__atomic_load_n(&draw_flag, __ATOMIC_ACQUIRE)){
 				break;
 			}
 		}
 	}
 
-	draw_flag = 0;
+	__atomic_store_n(&draw_flag, 0, __ATOMIC_RELEASE);
 	pthread_exit((void*)1);
 	return NULL;
 }
@@ -557,7 +558,7 @@ int drm_device_init(unsigned int front_buf_max)
 
 	drm_fd = fd;
 	drm_iter = modeset_list;
-	draw_flag = 0;
+	__atomic_store_n(&draw_flag, 0, __ATOMIC_RELEASE);
 
     ret = pthread_create(&draw_tid, NULL, &modeset_draw_thread, NULL);
     if (ret != 0) {
@@ -588,10 +589,10 @@ void drm_device_destory(void)
 	unsigned int count;
 	count = 0;
 	while(1){
-		draw_flag = 1;
+		__atomic_store_n(&draw_flag, 1, __ATOMIC_RELEASE);
 		count+=1;
 		usleep(10*1000);
-		if(!draw_flag){
+		if(!__atomic_load_n(&draw_flag, __ATOMIC_ACQUIRE)){
 			break;
 		}
 		if(count >= 100){
@@ -651,19 +652,17 @@ static void modeset_draw_dev(int fd, struct modeset_dev *dev)
 	struct modeset_buf *buf;
 	draw_frame_info_t frame_info = {0};
 
-	while(ringbuffer_is_empty(draw_rb)){
-        time.tv_sec=0;
-        time.tv_usec=(10);
-        select(0,NULL,NULL,NULL,&time);      
+    for (;;) {
+        if (__atomic_load_n(&draw_flag, __ATOMIC_ACQUIRE)) return;
+        STREAM_WORK_GUARD(work, STREAM_WORK);
+        if (!work.active) { usleep(1000); continue; }
+        if (ringbuffer_is_empty(draw_rb)) { usleep(10); continue; }
+        ringbuffer_get(draw_rb, (uint8_t *)&frame_info, sizeof(draw_frame_info_t));
+        buf = &dev->bufs[frame_info.front_buf];
+        ret = drmModePageFlip(fd, dev->crtc, buf->fb, DRM_MODE_PAGE_FLIP_EVENT, dev);
+        if (ret) SLOGI("cannot flip CRTC for connector %u \n", dev->conn);
+        return;
     }
-	ringbuffer_get(draw_rb, (uint8_t *)&frame_info, sizeof(draw_frame_info_t));
-
-	buf = &dev->bufs[frame_info.front_buf];
-	ret = drmModePageFlip(fd, dev->crtc, buf->fb,
-			      DRM_MODE_PAGE_FLIP_EVENT, dev);
-	if (ret) {
-		SLOGI("cannot flip CRTC for connector %u \n",dev->conn);
-	}
 }
 
 /*

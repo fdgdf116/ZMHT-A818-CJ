@@ -1,3 +1,4 @@
+#include "stream_lifecycle.h"
 #include <stdint.h>
 #include <sched.h>
 #include <stdio.h>
@@ -244,6 +245,12 @@ err_1:
     return ret_Val;
 }
 
+void dp_discard_queues(void)
+{
+    ringbuffer_reset(dp_send->data_rb);
+    if (dp_send->open_flag) ringbuffer_reset(get_draw_rb());
+}
+
 /*
 	函数: void dp_chn_ringbuffer_is_empty(void)
 	作用: dp显示的相关ring buffer的判断函数
@@ -327,11 +334,9 @@ static void *drm_data_cvtColor_thread(void* parameter)
     data_stream_t *data_stream = data_stream_get();
 
     while(1){
-        while(ringbuffer_is_empty(rb)){
-            time.tv_sec=0;
-            time.tv_usec=(1);
-            select(0,NULL,NULL,NULL,&time); 
-        }
+        STREAM_WORK_GUARD(work, STREAM_WORK);
+        if (!work.active) { usleep(1000); continue; }
+        if (ringbuffer_is_empty(rb)) { usleep(1); continue; }
 
         ringbuffer_get(rb, (uint8_t *)&frame_info, sizeof(image_frame_info_t));
 

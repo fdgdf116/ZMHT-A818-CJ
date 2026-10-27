@@ -28,7 +28,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 82,
+				"line" : 86,
 				"parent" : 0
 			},
 			{
@@ -40,7 +40,7 @@
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 98,
+				"line" : 102,
 				"parent" : 0
 			},
 			{
@@ -84,111 +84,111 @@
 			[
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/opencv4"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/opencv4"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/mpp"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/mpp"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/libdrm"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/libdrm"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/UCGUI"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/Interface"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/UCGUI/Interface"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/UCGUI/ucGUI"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI/Config"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/UCGUI/ucGUI/Config"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI/GUI/Core"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/UCGUI/ucGUI/GUI/Core"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI/GUI/MultiLayer"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/UCGUI/ucGUI/GUI/MultiLayer"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI/GUI/Widget"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/UCGUI/ucGUI/GUI/Widget"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI/GUI/WM"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/UCGUI/ucGUI/GUI/WM"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/common"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/common"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/log"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/log"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/mpp"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/utils"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/mpp/utils"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/osal/inc"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/mpp/osal/inc"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/base"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/mpp/base"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/gpu"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/gpu"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/rga"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/rga"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/osd"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/osd"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/pcie"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/pcie"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/fifo"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/fifo"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/drm_dp"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/drm_dp"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/uart"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/uart"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/system"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/system"
 				}
 			],
 			"language" : "CXX",
@@ -203,9 +203,9 @@
 			"sourceIndexes" : 
 			[
 				0,
-				11,
 				12,
-				19
+				13,
+				20
 			]
 		},
 		{
@@ -224,111 +224,111 @@
 			[
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/opencv4"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/opencv4"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/mpp"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/mpp"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/libdrm"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/libdrm"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/UCGUI"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/Interface"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/UCGUI/Interface"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/UCGUI/ucGUI"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI/Config"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/UCGUI/ucGUI/Config"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI/GUI/Core"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/UCGUI/ucGUI/GUI/Core"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI/GUI/MultiLayer"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/UCGUI/ucGUI/GUI/MultiLayer"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI/GUI/Widget"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/UCGUI/ucGUI/GUI/Widget"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI/ucGUI/GUI/WM"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/UCGUI/ucGUI/GUI/WM"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/common"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/common"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/log"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/log"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/mpp"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/utils"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/mpp/utils"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/osal/inc"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/mpp/osal/inc"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/mpp/base"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/mpp/base"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/gpu"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/gpu"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/rga"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/rga"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/osd"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/osd"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/pcie"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/pcie"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/fifo"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/fifo"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/drm_dp"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/drm_dp"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/uart"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/uart"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/src/system"
+					"path" : "/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/src/system"
 				}
 			],
 			"language" : "C",
@@ -344,17 +344,18 @@
 				8,
 				9,
 				10,
-				13,
+				11,
 				14,
 				15,
 				16,
 				17,
 				18,
-				20,
+				19,
 				21,
 				22,
 				23,
-				24
+				24,
+				25
 			]
 		}
 	],
@@ -373,31 +374,31 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-L/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/lib",
+				"fragment" : "-L/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/lib",
 				"role" : "libraryPath"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-L/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/lib/rockchip",
+				"fragment" : "-L/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/lib/rockchip",
 				"role" : "libraryPath"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-L/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/lib/opencv",
+				"fragment" : "-L/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/lib/opencv",
 				"role" : "libraryPath"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-L/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI",
+				"fragment" : "-L/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/UCGUI",
 				"role" : "libraryPath"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-L/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/lib/drm",
+				"fragment" : "-L/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/lib/drm",
 				"role" : "libraryPath"
 			},
 			{
-				"fragment" : "-Wl,-rpath,/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/lib:/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/lib/rockchip:/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/lib/opencv:/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/include/UCGUI:/home/wang/ZMHT-Project/ZMHT-A818-ALL/rk_a818_prj/lib/drm",
+				"fragment" : "-Wl,-rpath,/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/lib:/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/lib/rockchip:/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/lib/opencv:/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/include/UCGUI:/home/wang/ZMHT-Project/ZMHT-A818-CJ/rk_a818_prj/lib/drm",
 				"role" : "libraries"
 			},
 			{
@@ -550,7 +551,8 @@
 				21,
 				22,
 				23,
-				24
+				24,
+				25
 			]
 		}
 	],
@@ -620,6 +622,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 1,
 			"path" : "src/common/xutils.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/common/stream_lifecycle.c",
 			"sourceGroupIndex" : 0
 		},
 		{

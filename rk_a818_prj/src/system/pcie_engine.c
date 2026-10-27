@@ -1,3 +1,5 @@
+#include "stream_lifecycle.h"
+#include "vfifo_capacity.h"
 #include <stdint.h>
 #include <sched.h>
 #include <stdio.h>
@@ -467,17 +469,11 @@ void pcie_fpga2rga_image_to_queue(unsigned char chn, image_frame_info_t *frame_i
 */
 void pcie_fpga_device_stop(void)
 {
+    /* Caller has closed admission and confirmed all workers/DMA are idle. */
     pcie_set_rk_enable(0);
     pcie_set_pc_enable(0);
     pcie_fpga_reg_reset();
-
-    while(pcie_get_fpga2rk_vfifo_szie()){
-        usleep(100);
-    }
-
-    while(!ringbuffer_is_empty(g_fpga_pcie->pcie_data_rb)){
-        usleep(50);
-    }
+    ringbuffer_reset(g_fpga_pcie->pcie_data_rb);
 }
 
 /*
@@ -512,6 +508,8 @@ static void *pcie_read_data_thread(void* parameter)
     pthread_setaffinity_np(pthread_self( ), sizeof(mask), &mask);
 
     while(1) {
+        STREAM_WORK_GUARD(work, STREAM_DMA_READ);
+        if (!work.active) { usleep(1000); continue; }
         /*获取vfifo中的数据量*/
         fpga_vfifo_size = pcie_get_fpga2rk_vfifo_szie();
         /*如果数据量大于想要读取的数据，则进行数据的读取*/
@@ -532,6 +530,7 @@ static void *pcie_read_data_thread(void* parameter)
 
             } else {
                 SLOGI("[ERROR] PCIE READ DATA ERROR \n");
+                stream_request_stop();
             }
         } else {
             xt_nanosleep(0, 100);
@@ -752,11 +751,9 @@ static void *pcie_data_analysis_thread(void* parameter)
     pthread_setaffinity_np(pthread_self( ), sizeof(mask), &mask);
 
     while(1){
-        while(ringbuffer_is_empty(rb)) {
-            time.tv_sec=0;
-	        time.tv_usec=1;
-            select(0,NULL,NULL,NULL,&time);
-        }
+        STREAM_WORK_GUARD(work, STREAM_WORK);
+        if (!work.active) { usleep(1000); continue; }
+        if (ringbuffer_is_empty(rb)) { usleep(1); continue; }
         ringbuffer_get(rb, (uint8_t *)&frame_info, sizeof(image_frame_info_t));
 
         if(ringbuffer_is_full(rb)){
@@ -791,13 +788,59 @@ static void *pcie_data_analysis_thread(void* parameter)
 }
 
 
+/* 0x104 counts occupied 32-byte units; 0x100 is retained as a raw value.
+ * Cache before every write, but print only on faults. */
+static pthread_mutex_t vfifo_diag_lock = PTHREAD_MUTEX_INITIALIZER;
+static struct {
+    uint64_t sequence, started_ms;
+    unsigned int before_100, before_104, bytes;
+    int active;
+} vfifo_diag;
+
+static uint64_t vfifo_diag_ms(void)
+{
+    struct timespec now;
+    clock_gettime(CLOCK_MONOTONIC, &now);
+    return (uint64_t)now.tv_sec * 1000 + now.tv_nsec / 1000000;
+}
+
+void pcie_log_vfifo_diagnostics(const char *reason)
+{
+    if (!g_fpga_pcie || !g_fpga_pcie->pcie_reg) return;
+    pthread_mutex_lock(&vfifo_diag_lock);
+    uint64_t now = vfifo_diag_ms();
+    unsigned int current_100 = pcie_bar_read_reg(g_fpga_pcie->pcie_reg, FPGA2RK_VFIFO_SIZE_OFFSET);
+    unsigned int current_104 = pcie_bar_read_reg(g_fpga_pcie->pcie_reg, RK2FPGA_VFIFO_SIZE_OFFSET);
+    SLOGI("[VFIFO] reason=%s mono_ms=%" PRIu64 " seq=%" PRIu64
+          " write_active=%d write_age_ms=%" PRIu64 " bytes=%u target=0x80000000"
+          " before_100=0x%08x before_104=0x%08x now_100=0x%08x now_104=0x%08x used_104_bytes=%" PRIu64 " free_104_bytes=%" PRIu64 "\n",
+          reason, now, vfifo_diag.sequence, vfifo_diag.active,
+          vfifo_diag.active ? now - vfifo_diag.started_ms : 0,
+          vfifo_diag.bytes, vfifo_diag.before_100, vfifo_diag.before_104,
+          current_100, current_104, (uint64_t)current_104 * 32,
+          rk2fpga_vfifo_free_bytes(current_104));
+    pthread_mutex_unlock(&vfifo_diag_lock);
+}
+
 int pcie_mpp_data_send(unsigned char* mpp_data, unsigned int size)
 {
     int ret = 0;
+    pthread_mutex_lock(&vfifo_diag_lock);
+    ++vfifo_diag.sequence;
+    vfifo_diag.started_ms = vfifo_diag_ms();
+    vfifo_diag.bytes = size;
+    vfifo_diag.before_100 = pcie_bar_read_reg(g_fpga_pcie->pcie_reg, FPGA2RK_VFIFO_SIZE_OFFSET);
+    vfifo_diag.before_104 = pcie_bar_read_reg(g_fpga_pcie->pcie_reg, RK2FPGA_VFIFO_SIZE_OFFSET);
+    vfifo_diag.active = 1;
+    pthread_mutex_unlock(&vfifo_diag_lock);
     ret = dma_memory_mapped_write(mpp_data, PCIE_WRITE_IMAGE_DATA_ADDRESS,size, PCIE_H2C_0);
     if(ret != size){
+        pcie_log_vfifo_diagnostics("write_failed");
         SLOGI("rk2fpga size:(%d-%d) data error \n", ret, size);
     }
+    pthread_mutex_lock(&vfifo_diag_lock);
+    vfifo_diag.active = 0;
+    pthread_mutex_unlock(&vfifo_diag_lock);
 
     return ret;
 }
@@ -872,6 +915,8 @@ int pcie_send_mpp_data(int chn, image_frame_info_t *frame_info)
 static void *pcie_mpp_send_thread(void* parameter)
 {
     int ret;
+    int capacity_paused = 0;
+    uint64_t capacity_log_ms = 0;
     ring_buffer_t *rb;
     image_frame_info_t frame_info;
 
@@ -879,11 +924,33 @@ static void *pcie_mpp_send_thread(void* parameter)
     mpi_encode_info_t* mpi_encode = mpi_encode_info_get();
 
     while(1){
+        int wait_for_space = 0;
         /*遍历编码通道，有数据则通过PCIE发送出去*/
         for(int chn = 0; chn < MPP_ENCODE_NTHREAD_MAX; chn++){
+            STREAM_WORK_GUARD(work, STREAM_DMA_WRITE);
+            if (!work.active) { usleep(1000); break; }
             rb =mpi_encode->mpp_encode_rb[chn];
             image_encode = &mpi_encode->image_encode[chn];
             if(!ringbuffer_is_empty(rb)) {
+                /* One H2C sender owns this path. Check before dequeue so a
+                 * capacity pause neither drops this entry nor faults the stream. */
+                uint32_t count = pcie_bar_read_reg(g_fpga_pcie->pcie_reg, RK2FPGA_VFIFO_SIZE_OFFSET);
+                int can_write = rk2fpga_vfifo_can_write(count,
+                    MPP_OUTPUT_FRAME_SIZE + MPP_OUTPUT_HEAD_SIZE);
+                uint64_t now = vfifo_diag_ms();
+                if ((!can_write || capacity_paused) &&
+                    (!capacity_log_ms || now - capacity_log_ms >= 1000)) {
+                    SLOGI("[VFIFO] %s DMA write: count_104=%u used_bytes=%" PRIu64
+                          " free_bytes=%" PRIu64 " reserve_bytes=%" PRIu64 "\n",
+                          can_write ? "resume" : "pause", count, (uint64_t)count * 32,
+                          rk2fpga_vfifo_free_bytes(count), RK2FPGA_VFIFO_RESERVE_BYTES);
+                    capacity_log_ms = now;
+                }
+                capacity_paused = !can_write;
+                if (!can_write) {
+                    wait_for_space = 1;
+                    break;
+                }
                 if(ringbuffer_is_full(rb)){
                     SLOGI("[%s] chn:%d ringbuffer full \n", __func__, chn);
                 }
@@ -891,12 +958,15 @@ static void *pcie_mpp_send_thread(void* parameter)
                 
                 ret = pcie_send_mpp_data(chn, &frame_info);
                 if(ret != 0){
-                    SLOGI("rk2fpga chn:%d offset:0x%x size:(%d) data error \n", chn, frame_info.frame_offset, frame_info.frame_size);
+                    SLOGI("rk2fpga chn:%d offset:0x%x size:(%d) data error; stopping stream \n", chn, frame_info.frame_offset, frame_info.frame_size);
+                    stream_request_stop();
+                    break;
                 }
             }
         }
-        //usleep(100);
-        xt_nanosleep(0, (100));
+        /* Outside the work guard: TYPE7 does not wait on the capacity sleep. */
+        if (wait_for_space) usleep(1000);
+        else xt_nanosleep(0, 100);
     }
 
     return NULL;

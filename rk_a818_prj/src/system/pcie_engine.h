@@ -32,6 +32,7 @@ unsigned int pcie_get_image_width(unsigned char chn);
 unsigned int pcie_get_image_height(unsigned char chn);
 unsigned int pcie_get_image_fps(unsigned char chn);
 int pcie_mpp_data_send(unsigned char* mpp_data, unsigned int size);
+void pcie_log_vfifo_diagnostics(const char *reason);
 
 #ifdef __cplusplus
 }
